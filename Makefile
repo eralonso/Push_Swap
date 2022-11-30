@@ -1,4 +1,5 @@
 NAME		=	push_swap
+CHECKER		=	checker
 
 HEADER		=	./inc/
 
@@ -36,6 +37,21 @@ ${NAME}		::
 
 make_lib	:
 	@$(MAKE) -C ft_printf
+
+clean		:
+	@$(MAKE) clean -C ft_printf
+	@${RM} ${OBJ_DIR}
+
+fclean		:
+	@$(MAKE) clean
+	@$(MAKE) fclean -C ft_printf
+	@${RM} ${NAME} ${CHECKER}
+	@echo "All OBJS && DEPS has been removed"
+
+re		:
+	@$(MAKE) fclean
+	@$(MAKE) all
+	@echo "Program has been removed"
 
 .PHONY		: all clean fclean re make_lib
 
