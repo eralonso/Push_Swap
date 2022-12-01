@@ -6,7 +6,7 @@
 /*   By: eralonso <eralonso@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/14 11:13:19 by eralonso          #+#    #+#             */
-/*   Updated: 2022/11/07 11:41:28 by eralonso         ###   ########.fr       */
+/*   Updated: 2022/12/01 12:34:27 by eralonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,10 +45,10 @@ typedef struct s_info {
 	t_uc	err:1;
 }			t_info;
 
-typedef struct s_stack {
+typedef struct s_manager {
 	t_info	*info;
 	t_flags	*flags;
-}			t_stack;
+}			t_manager;
 
 /*------------------------------->Main function<-------------------------*/
 int		ft_printf(char const *format, ...);
@@ -59,8 +59,8 @@ t_flags	*ft_init_flags(void);
 void	ft_reset_flags(t_flags *flags);
 
 /*------------------------------->Format checker<------------------------*/
-void	ft_formatize(t_stack *stack, char *str);
-void	ft_format_checker(t_stack *stack, char fmt);
+void	ft_formatize(t_manager *stack, char *str);
+void	ft_format_checker(t_manager *stack, char fmt);
 
 /*-------------------------------->Flags checker<------------------------*/
 int		ft_flags_checker(t_flags *flags, char *str);
@@ -73,30 +73,30 @@ void	ft_flag_selector(t_flags *flags, char fmt);
 /*------------------------------------>Utils<----------------------------*/
 //|
 //|---> Free
-int		ft_free_error(t_stack *stack);
+int		ft_free_error(t_manager *stack);
 //|
 //|---> Char
-void	ft_char_fl(char c, t_stack *stack);
-void	ft_putnchar(char c, int n, t_stack *stk);
+void	ft_char_fl(char c, t_manager *stack);
+void	ft_putnchar(char c, int n, t_manager *stk);
 //|
 //|---> String
-void	ft_str_fl(char *str, t_stack *stack);
-void	ft_putnstr(char *str, int n, t_stack *stk);
+void	ft_str_fl(char *str, t_manager *stack);
+void	ft_putnstr(char *str, int n, t_manager *stk);
 //|
 //|---> Int and Unsigned int
-void	ft_int_fl(t_lli nbr, t_stack *stack);
+void	ft_int_fl(t_lli nbr, t_manager *stack);
 //|
 //|---> Hexadecimal
-void	ft_hex_fl(unsigned int nbr, t_stack *stack, char fmt, char *hex);
+void	ft_hex_fl(unsigned int nbr, t_manager *stack, char fmt, char *hex);
 //|
 //|---> Numbers Utils
-void	ft_putnbr_base(t_lli nbr, char *base, t_lli len, t_stack *stk);
+void	ft_putnbr_base(t_lli nbr, char *base, t_lli len, t_manager *stk);
 size_t	ft_nbr_size(t_lli nbr, t_lli len);
 //|
 //|---> Pointer
-void	ft_ptr_fl(t_ull ptr, t_stack *stack);
+void	ft_ptr_fl(t_ull ptr, t_manager *stack);
 size_t	ft_size_ptr(t_ull ptr);
 //|
 //|---> Percent or unrecognized format
-void	ft_ofmt_fl(char c, t_stack *stack);
+void	ft_ofmt_fl(char c, t_manager *stack);
 #endif

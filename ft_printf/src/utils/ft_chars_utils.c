@@ -6,13 +6,13 @@
 /*   By: eralonso <eralonso@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/04 18:56:37 by eralonso          #+#    #+#             */
-/*   Updated: 2022/11/04 21:03:18 by eralonso         ###   ########.fr       */
+/*   Updated: 2022/12/01 12:37:34 by eralonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include	"ft_printf.h"
 
-void	ft_putnchar(char c, int n, t_stack *stk)
+void	ft_putnchar(char c, int n, t_manager *stk)
 {
 	int	aux;
 
@@ -29,7 +29,7 @@ void	ft_putnchar(char c, int n, t_stack *stk)
 	}
 }
 
-void	ft_putnstr(char *str, int n, t_stack *stk)
+void	ft_putnstr(char *str, int n, t_manager *stk)
 {
 	int	i;
 
@@ -38,14 +38,14 @@ void	ft_putnstr(char *str, int n, t_stack *stk)
 		ft_putnchar(str[i++], 1, stk);
 }
 
-void	ft_char_fl(char c, t_stack *stk)
+void	ft_char_fl(char c, t_manager *stk)
 {
 	ft_putnchar(' ', (stk->flags->width - 1) * !stk->flags->dash, stk);
 	ft_putnchar(c, 1, stk);
 	ft_putnchar(' ', (stk->flags->width - 1) * stk->flags->dash, stk);
 }
 
-void	ft_str_fl(char *str, t_stack *stack)
+void	ft_str_fl(char *str, t_manager *stack)
 {
 	if (!str)
 		str = "(null)";
@@ -58,7 +58,7 @@ void	ft_str_fl(char *str, t_stack *stack)
 		* stack->flags->dash, stack);
 }
 
-void	ft_ofmt_fl(char fmt, t_stack *stack)
+void	ft_ofmt_fl(char fmt, t_manager *stack)
 {
 	char	c;
 

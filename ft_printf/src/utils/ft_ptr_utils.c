@@ -6,7 +6,7 @@
 /*   By: eralonso <eralonso@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/26 16:50:46 by eralonso          #+#    #+#             */
-/*   Updated: 2022/11/04 21:03:24 by eralonso         ###   ########.fr       */
+/*   Updated: 2022/12/01 12:38:18 by eralonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ size_t	ft_size_ptr(t_ull ptr)
 	return (size);
 }
 
-void	ft_ptr_fl(t_ull	ptr, t_stack *stack)
+void	ft_ptr_fl(t_ull	ptr, t_manager *stack)
 {
 	int		j;
 	int		size;

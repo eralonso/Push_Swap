@@ -6,7 +6,7 @@
 /*   By: eralonso <eralonso@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/26 17:24:16 by eralonso          #+#    #+#             */
-/*   Updated: 2022/11/04 21:03:12 by eralonso         ###   ########.fr       */
+/*   Updated: 2022/12/01 12:38:00 by eralonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ size_t	ft_nbr_size(t_lli nbr, t_lli len)
 	return (nbr_size);
 }
 
-void	ft_putnbr_base(t_lli nbr, char *base, t_lli len, t_stack *stk)
+void	ft_putnbr_base(t_lli nbr, char *base, t_lli len, t_manager *stk)
 {
 	int		j;
 	int		nbr_size;
@@ -52,7 +52,7 @@ void	ft_putnbr_base(t_lli nbr, char *base, t_lli len, t_stack *stk)
 	}
 }
 
-void	ft_int_fl(t_lli n, t_stack *stk)
+void	ft_int_fl(t_lli n, t_manager *stk)
 {
 	int		esp;
 
@@ -79,7 +79,7 @@ void	ft_int_fl(t_lli n, t_stack *stk)
 		* stk->flags->dash, stk);
 }
 
-void	ft_hex_fl(unsigned int n, t_stack *stk, char fmt, char *hex)
+void	ft_hex_fl(unsigned int n, t_manager *stk, char fmt, char *hex)
 {
 	int		size;
 	int		esp;

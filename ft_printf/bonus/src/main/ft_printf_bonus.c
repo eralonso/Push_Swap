@@ -6,13 +6,13 @@
 /*   By: eralonso <eralonso@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/02 12:36:13 by eralonso          #+#    #+#             */
-/*   Updated: 2022/11/04 20:55:18 by eralonso         ###   ########.fr       */
+/*   Updated: 2022/12/01 12:40:42 by eralonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include	"ft_printf_bonus.h"
 
-int	ft_free_error(t_stack *stack)
+int	ft_free_error(t_manager *stack)
 {
 	va_end(stack->info->args);
 	free(stack->info);
@@ -58,8 +58,8 @@ t_info	*ft_init_info(char *str)
 
 int	ft_printf(char const *str, ...)
 {
-	t_stack	stack;
-	int		bytes;
+	t_manager	stack;
+	int			bytes;
 
 	stack.info = ft_init_info((char *)str);
 	if (!stack.info)

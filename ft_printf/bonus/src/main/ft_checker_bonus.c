@@ -6,13 +6,13 @@
 /*   By: eralonso <eralonso@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/04 09:00:21 by eralonso          #+#    #+#             */
-/*   Updated: 2022/11/04 20:55:06 by eralonso         ###   ########.fr       */
+/*   Updated: 2022/12/01 12:38:45 by eralonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include	"ft_printf_bonus.h"
 
-void	ft_format_checker(t_stack *stack, char fmt)
+void	ft_format_checker(t_manager *stack, char fmt)
 {
 	if (fmt == 'c')
 		ft_char_fl(va_arg(stack->info->args, int), stack);
@@ -32,7 +32,7 @@ void	ft_format_checker(t_stack *stack, char fmt)
 		ft_ofmt_fl(fmt, stack);
 }
 
-void	ft_formatize(t_stack *stack, char *str)
+void	ft_formatize(t_manager *stack, char *str)
 {
 	int	index;
 

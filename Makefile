@@ -1,16 +1,23 @@
 NAME		=	push_swap
 CHECKER		=	checker
 
-HEADER		=	./inc/
-
+LIBRARY		=	ft_printf/
 LIB		=	ft_printf/libftprintf.a
 
+HEADER		=	./inc/
+
 SRC_DIR		=	src/
+EXEC_DIR	=	src/exec/
+UTIL_DIR	=	src/utils/
 OBJ_DIR		=	obj/
 
-FILES		=	push_swap ft_moves 
+F_EXECS		=	push_swap ft_check_input ft_stacks
+F_UTILS		=	ft_exit ft_nodes
+FILES		=	${F_EXECS} ${F_UTILS}
 
-SRCS		=	$(addprefix ${SRC_DIR}, $(addsuffix .c, ${FILES}))
+EXECS		=	$(addprefix ${SRC_DIR}, $(addsuffix .c, ${F_EXECS}))
+UTILS		=	$(addprefix ${UTIL_DIR}, $(addsuffix .c, ${F_UTILS}))
+
 OBJS		=	$(addprefix ${OBJ_DIR}, $(addsuffix .o, ${FILES}))
 DEPS		=	$(addprefix ${OBJ_DIR}, $(addsuffix .d, ${FILES}))
 
@@ -20,7 +27,7 @@ MKD		=	mkdir -p
 MK		=	Makefile
 CFLAGS		=	-Wall -Wextra -Werror
 
-${OBJ_DIR}%.o	:	${SRC_DIR}%.c ${MK} ${LIB}
+${OBJ_DIR}%.o	:	${SRC_DIR}/*/%.c ${MK} ${LIB}
 	@${MKD} $(dir $@)
 	@printf "Compiling $<...				\r"
 	@${CC} -MT $@ ${CFLAGS} -MMD -MP ${INCLUDE} -c $< -o $@
@@ -30,28 +37,29 @@ all		:
 	@$(MAKE) ${NAME}
 
 ${NAME}		::	${OBJS}
-	${CC} ${CFLAGS} ${LIB} ${OBJS} -o $@
+	${CC} ${CFLAGS} ${OBJS} ${LIB} -o $@
 
 ${NAME}		::
+	@echo ""
 	@echo "Nothing to be done for 'push_swap'."
 
 make_lib	:
-	@$(MAKE) -C ft_printf
+	@$(MAKE) -C ${LIBRARY}
 
 clean		:
-	@$(MAKE) clean -C ft_printf
+	@$(MAKE) clean -C ${LIBRARY}
 	@${RM} ${OBJ_DIR}
+	@echo "All OBJS && DEPS has been removed"
 
 fclean		:
 	@$(MAKE) clean
-	@$(MAKE) fclean -C ft_printf
+	@$(MAKE) fclean -C ${LIBRARY}
 	@${RM} ${NAME} ${CHECKER}
-	@echo "All OBJS && DEPS has been removed"
+	@echo "Program has been removed"
 
 re		:
 	@$(MAKE) fclean
 	@$(MAKE) all
-	@echo "Program has been removed"
 
 .PHONY		: all clean fclean re make_lib
 
