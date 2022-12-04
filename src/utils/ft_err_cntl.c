@@ -1,45 +1,46 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_nodes.c                                         :+:      :+:    :+:   */
+/*   ft_err_cntl.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: eralonso <eralonso@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/12/01 18:50:58 by eralonso          #+#    #+#             */
-/*   Updated: 2022/12/01 19:20:12 by eralonso         ###   ########.fr       */
+/*   Created: 2022/12/03 16:49:06 by eralonso          #+#    #+#             */
+/*   Updated: 2022/12/04 19:03:37 by eralonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include	"push_swap.h"
 
-t_node	*ft_new_node(int num)
+void	ft_exit(int num)
 {
-	t_node	*new;
-
-	new = (t_node *)malloc(sizeof(t_node) * 1);
-	if (!new)
-		return (NULL);
-	new->next = NULL;
-	new->prev = NULL;
-	new->val = num;
-	return (new);
+	if (num == 1)
+		write(2, "Error\n", ft_strlen("Error\n"));
+	exit(num);
 }
 
-int	ft_stack_clear(t_stack *a)
+void	ft_print_move(t_stack *a, t_stack *b, char *str)
+{
+	if (str && ft_printf("%s\n", str) == -1)
+	{
+		ft_stack_clear(a);
+		ft_stack_clear(b);
+		ft_exit(1);
+	}
+}
+
+int	ft_issorted(t_stack *s)
 {
 	t_node	*tmp;
 
-	tmp = a->first;
+	if (!s->first)
+		return (0);
+	tmp = s->first;
 	while (tmp->next)
 	{
+		if (tmp->val > tmp->next->val)
+			return (0);
 		tmp = tmp->next;
-		free(tmp->prev);
-		tmp->prev = NULL;
 	}
-	if (tmp)
-	{
-		free(tmp);
-		tmp = NULL;
-	}
-	return (0);
+	return (1);
 }

@@ -6,7 +6,7 @@
 #    By: eralonso <eralonso@student.42barcel>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/09/18 12:39:13 by eralonso          #+#    #+#              #
-#    Updated: 2022/10/22 10:05:17 by eralonso         ###   ########.fr        #
+#    Updated: 2022/12/02 10:22:57 by eralonso         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -65,7 +65,7 @@ INCLUDE = -I ./
 ${OBJS_DIR}%.o: %.c Makefile
 	@${MDP} $(dir $@)
 	@printf "${PINK}Compiling: ${YELLOW}$<...${DEF_COLOR}				\r"
-	@gcc -MT $@ ${CFLAGS} -MMD -MP ${INCLUDE} -c $< -o $@
+	@${CC} -MT $@ ${CFLAGS} -MMD -MP ${INCLUDE} -c $< -o $@
 
 all			: 
 	@$(MAKE) ${NAME}
@@ -82,7 +82,7 @@ bonus		:
 
 ${BNAME}	:: ${OBJS} ${BONUS_OBJS} 
 	@${AR} ${NAME} ${OBJS} ${BONUS_OBJS}
-	@printf "\n${GREEN}LIBRARY: libft has been created.${DEF_COLOR}\n"
+	@printf "${GREEN}LIBRARY: libft has been created.${DEF_COLOR}\n"
 	@touch $@
 
 ${BNAME}	::

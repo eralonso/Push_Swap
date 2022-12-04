@@ -6,7 +6,7 @@
 #    By: eralonso <eralonso@student.42barcel>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/10/01 14:33:49 by eralonso          #+#    #+#              #
-#    Updated: 2022/11/07 14:37:20 by eralonso         ###   ########.fr        #
+#    Updated: 2022/12/02 10:21:16 by eralonso         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 #-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/COLORS/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-#
@@ -38,7 +38,7 @@ MAINB_DIR	= bonus/src/main/
 UTILSB_DIR	= bonus/src/utils/
 
 #-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/LIBFT/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-#
-LFT		= libft
+LFT			= libft
 LFTA		= ${LFT_DIR}libft.a
 
 #-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/FILES/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-#
@@ -72,10 +72,10 @@ DEPS		= $(addsuffix .d, $(basename ${OBJS}))
 DEPSB		= $(addsuffix .d, $(basename ${OBJSB}))
 
 #-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/COMANDS/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-#
-RM		= rm -f
-AR		= ar crs
-MK		= Makefile
-MKD		= mkdir -p
+RM			= rm -f
+AR			= ar crs
+MK			= Makefile
+MKD			= mkdir -p
 CFLAGS		= -Wall -Wextra -Werror
 INCLUDE		= -I${HEADER}
 B_INCLUDE	= -I${B_HEADER}
@@ -83,13 +83,13 @@ B_INCLUDE	= -I${B_HEADER}
 #-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/RULES/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-#
 ${OBJS_DIR}%.o	:	${SRCS_DIR}*/%.c ${LFTA} ${MK}
 	@${MKD} $(dir $@)
+	@printf "${PINK}Compiling: ${YELLOW}$<...${DEF_COLOR}							\r"
 	@${CC} -MT $@ ${CFLAGS} -MMD -MP ${INCLUDE} -c $< -o $@
-	@echo "${PINK}Compiling ${YELLOW}$<...${DEF_COLOR}"
 
 ${OBJS_DIR}%.o	:	${SRCSB_DIR}*/%.c ${LFTA} ${MK}
 	@${MKD} $(dir $@)
+	@printf "${PINK}Compiling: ${YELLOW}$<...${DEF_COLOR}							\r"
 	@${CC} -MT $@ ${CFLAGS} -MMD -MP ${B_INCLUDE} -c $< -o $@
-	@echo "${PINK}Compiling ${YELLOW}$<...${DEF_COLOR}"
 
 all		:
 	@$(MAKE) make_libft
@@ -106,16 +106,16 @@ ifndef BONUS
 ${NAME}		::	${OBJS}
 	@cp ${LFTA} ${NAME}
 	@${AR} ${NAME} ${OBJS}
-	@echo "${GREEN}LIBRARY: ft_printf has been created${DEF_COLOR}"
+	@echo "${GREEN}\nLIBRARY: ft_printf has been created${DEF_COLOR}"
 else
 ${NAME}		::	${OBJSB}
 	@cp ${LFTA} ${NAME}
 	@${AR} ${NAME} ${OBJSB}
-	@echo "${GREEN}LIBRARY: ft_printf has been created${DEF_COLOR}"
+	@echo "${GREEN}\nLIBRARY: ft_printf has been created${DEF_COLOR}"
 endif
 
 ${NAME}		::
-	@echo "${YELLOW}Nothing to be done for 'ft_printf'${DEF_COLOR}"
+	@echo "${YELLOW}Nothing to be done for 'ft_printf'\n${DEF_COLOR}"
 
 clean		:
 	@make clean -C ${LFT}
@@ -127,7 +127,6 @@ fclean		:
 	@${RM} ${NAME} ${LFTA}
 	@echo "${RED}LIBRARY: 'libft' has been removed${DEF_COLOR}"
 	@echo "${RED}LIBRARY: 'ft_printf' has been removed${DEF_COLOR}"
-	@echo ""
 
 re			:
 	@echo ""

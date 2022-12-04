@@ -6,7 +6,7 @@
 /*   By: eralonso <eralonso@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/01 18:34:15 by eralonso          #+#    #+#             */
-/*   Updated: 2022/12/01 19:22:08 by eralonso         ###   ########.fr       */
+/*   Updated: 2022/12/04 19:44:31 by eralonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,28 +14,53 @@
 
 int	ft_init_stacks(t_stack *a, t_stack *b, char **input)
 {
-	int		i;
 	t_node	*first_n;
-	t_node	*tmp;
 
-	i = 0;
-	first_n = ft_new_node(ft_atoi(input[i]));
+	a->size = 0;
+	first_n = ft_new_node(ft_atoi(input[a->size]));
 	if (!first_n)
 		return (0);
 	a->first = first_n;
-	a->size = 1;
-	tmp = first_n;
-	while (input[++i])
+	while (input[++(a->size)])
 	{
-		tmp->next = ft_new_node(ft_atoi(input[i]));
-		if (!tmp->next)
+		first_n->next = ft_new_node(ft_atoi(input[a->size]));
+		if (!first_n->next)
 			return (ft_stack_clear(a));
-		tmp->next->prev = tmp;
-		tmp = tmp->next;
-		(a->size)++;
+		first_n->next->prev = first_n;
+		first_n = first_n->next;
 	}
+	a->last = first_n;
 	b->first = NULL;
 	b->last = NULL;
 	b->size = 0;
 	return (1);
+}
+
+t_node	*ft_new_node(int num)
+{
+	t_node	*new;
+
+	new = (t_node *)malloc(sizeof(t_node) * 1);
+	if (!new)
+		return (NULL);
+	new->next = NULL;
+	new->prev = NULL;
+	new->val = num;
+	return (new);
+}
+
+int	ft_stack_clear(t_stack *s)
+{
+	t_node	*tmp;
+
+	if (!s)
+		return (0);
+	while (s->first)
+	{
+		tmp = s->first->next;
+		free(s->first);
+		s->first = NULL;
+		s->first = tmp;
+	}
+	return (0);
 }
