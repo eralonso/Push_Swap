@@ -6,7 +6,7 @@
 #    By: eralonso <eralonso@student.42barcel>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/12/02 09:55:26 by eralonso          #+#    #+#              #
-#    Updated: 2022/12/04 18:00:51 by eralonso         ###   ########.fr        #
+#    Updated: 2022/12/05 18:34:37 by eralonso         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -34,7 +34,7 @@ MOVE_DIR	=	src/moves/
 UTIL_DIR	=	src/utils/
 OBJ_DIR		=	obj/
 
-F_EXECS		=	push_swap ft_check_input ft_stacks
+F_EXECS		=	push_swap ft_check_input ft_stacks ft_sort
 F_UTILS		=	ft_err_cntl
 F_MOVES		=	ft_moves ft_combs
 FILES		=	${F_EXECS} ${F_UTILS} ${F_MOVES}

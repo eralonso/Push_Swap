@@ -6,7 +6,7 @@
 /*   By: eralonso <eralonso@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/01 12:11:11 by eralonso          #+#    #+#             */
-/*   Updated: 2022/12/04 14:25:55 by eralonso         ###   ########.fr       */
+/*   Updated: 2022/12/05 18:33:18 by eralonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,15 +28,18 @@ typedef struct s_stack {
 	int		size;
 }				t_stack;
 
+//ERR CONTROL
 void		ft_exit(int num);
 void		ft_print_move(t_stack *a, t_stack *b, char *str);
 
+//CHECK INPUT
 int			ft_check_input(char **input);
 int			ft_isnum(char *input);
 int			ft_isint(char *num);
 long long	ft_atoll(char *str);
 int			ft_isdup(char **input, int num, int index);
 
+//STACKS AND NODE
 int			ft_init_stacks(t_stack *a, t_stack *b, char **input);
 t_node		*ft_new_node(int num);
 int			ft_stack_clear(t_stack *a);
@@ -53,5 +56,12 @@ void		ft_pb(t_stack *a, t_stack *b);
 void		ft_ss(t_stack *a, t_stack *b);
 void		ft_rr(t_stack *a, t_stack *b);
 void		ft_rrr(t_stack *a, t_stack *b);
+
+//UTILS
+int			ft_issorted(t_stack *a);
+
+//SORTING
+void		ft_sort(t_stack *a, t_stack  *b);
+void		ft_sort_three(t_stack *a, t_stack  *b);
 
 #endif
