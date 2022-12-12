@@ -6,25 +6,28 @@
 /*   By: eralonso <eralonso@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/26 18:01:19 by eralonso          #+#    #+#             */
-/*   Updated: 2022/09/27 10:09:32 by eralonso         ###   ########.fr       */
+/*   Updated: 2022/12/07 13:27:50 by eralonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include	"libft.h"
 
-static char	**ft_delete(char **split)
+void	*ft_free(char **split)
 {
-	int	i ;
+	int	i;
 
-	i = 0;
-	while (split[i])
+	if (split)
 	{
-		free(split[i]);
-		split[i] = 0;
-		i++;
+		i = 0;
+		while (split[i])
+		{
+			free(split[i]);
+			split[i] = NULL;
+			i++;
+		}
+		free(split);
+		split = NULL;
 	}
-	free(split);
-	split = 0;
 	return (NULL);
 }
 
@@ -76,7 +79,7 @@ char	**ft_split(char const *s, char c)
 		{
 			split[i++] = ft_create_word(s, c);
 			if (!split[i - 1])
-				return (ft_delete(split));
+				return (ft_free(split));
 			while (*s != c && *s)
 				s++;
 		}

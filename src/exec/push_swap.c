@@ -6,7 +6,7 @@
 /*   By: eralonso <eralonso@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/01 09:24:31 by eralonso          #+#    #+#             */
-/*   Updated: 2022/12/05 19:37:42 by eralonso         ###   ########.fr       */
+/*   Updated: 2022/12/11 15:50:51 by eralonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,31 +16,31 @@ void	ft_test_move(t_stack a, t_stack b)
 {
 	if (a.first)
 	{
-		ft_printf("a.first->val == %i\n", a.first->val);
+		ft_printf(1, "a.first->val == %i\n", a.first->val);
 		if (a.first->next)
-			ft_printf("a.first->next->val == %i\n", a.first->next->val);
+			ft_printf(1, "a.first->next->val == %i\n", a.first->next->val);
 		else
-			ft_printf("a.first->next == %s\n", a.first->next);
+			ft_printf(1, "a.first->next == %s\n", a.first->next);
 		if (a.first->prev)
-			ft_printf("a.first->prev->val == %i\n", a.first->prev->val);
+			ft_printf(1, "a.first->prev->val == %i\n", a.first->prev->val);
 		else
-			ft_printf("a.first->prev == %s\n", a.first->prev);
-		ft_printf("a.last->val == %i\n", a.last->val);
-		ft_printf("a.size == %i\n", a.size);
+			ft_printf(1, "a.first->prev == %s\n", a.first->prev);
+		ft_printf(1, "a.last->val == %i\n", a.last->val);
+		ft_printf(1, "a.size == %i\n", a.size);
 	}
 	if (b.first)
 	{
-		ft_printf("b.first->val == %i\n", b.first->val);
+		ft_printf(1, "b.first->val == %i\n", b.first->val);
 		if (b.first->next)
-			ft_printf("b.first->next->val == %i\n", b.first->next->val);
+			ft_printf(1, "b.first->next->val == %i\n", b.first->next->val);
 		else
-			ft_printf("b.first->next == %s\n", b.first->next);
+			ft_printf(1, "b.first->next == %s\n", b.first->next);
 		if (b.first->prev)
-			ft_printf("b.first->prev->val == %i\n", b.first->prev->val);
+			ft_printf(1, "b.first->prev->val == %i\n", b.first->prev->val);
 		else
-			ft_printf("b.first->prev == %s\n", b.first->prev);
-		ft_printf("b.last->val == %i\n", b.last->val);
-		ft_printf("b.size == %i\n", b.size);
+			ft_printf(1, "b.first->prev == %s\n", b.first->prev);
+		ft_printf(1, "b.last->val == %i\n", b.last->val);
+		ft_printf(1, "b.size == %i\n", b.size);
 	}
 }
 
@@ -64,13 +64,13 @@ int	main(int ac, char **av)
 	return (0);
 }
 	/*
-	ft_printf("a.first->val == %i\n", a.first->val);
-	ft_printf("a.first->next->val == %i\n", a.first->next->val);
-	ft_printf("a.last->val == %i\n", a.last->val);
-	ft_printf("\nPrimera prueba: PB\n\n");
+	ft_printf(1, "a.first->val == %i\n", a.first->val);
+	ft_printf(1, "a.first->next->val == %i\n", a.first->next->val);
+	ft_printf(1, "a.last->val == %i\n", a.last->val);
+	ft_printf(1, "\nPrimera prueba: PB\n\n");
 	ft_pb(&a, &b);
 	ft_test_move(a, b);
-	ft_printf("\nSegunda prueba: PB\n\n");
+	ft_printf(1, "\nSegunda prueba: PB\n\n");
 	ft_pb(&a, &b);
 	ft_test_move(a, b);
 	ft_pb(&a, &b);

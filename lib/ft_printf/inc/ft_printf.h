@@ -6,14 +6,14 @@
 /*   By: eralonso <eralonso@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/14 11:13:19 by eralonso          #+#    #+#             */
-/*   Updated: 2022/12/01 12:35:01 by eralonso         ###   ########.fr       */
+/*   Updated: 2022/12/07 09:52:05 by eralonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef FT_PRINTF_H
 # define FT_PRINTF_H
 
-# include	"../libft/libft.h"
+# include	"../../libft/libft.h"
 # include	<stdarg.h>
 
 # define B10 (char *)"0123456789"
@@ -43,6 +43,7 @@ typedef struct s_info {
 	char	*str;
 	char	c;
 	t_uc	err:1;
+	int		fd;
 }			t_info;
 
 typedef struct s_manager {
@@ -51,10 +52,10 @@ typedef struct s_manager {
 }			t_manager;
 
 /*------------------------------->Main function<-------------------------*/
-int		ft_printf(char const *format, ...);
+int		ft_printf(int fd, char const *format, ...);
 
 /*------------------------------->Init functions<------------------------*/
-t_info	*ft_init_info(char *str);
+t_info	*ft_init_info(int fd, char *str);
 t_flags	*ft_init_flags(void);
 void	ft_reset_flags(t_flags *flags);
 

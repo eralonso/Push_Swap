@@ -6,7 +6,7 @@
 /*   By: eralonso <eralonso@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/01 18:34:15 by eralonso          #+#    #+#             */
-/*   Updated: 2022/12/04 19:44:31 by eralonso         ###   ########.fr       */
+/*   Updated: 2022/12/11 16:04:55 by eralonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,8 @@ int	ft_init_stacks(t_stack *a, t_stack *b, char **input)
 		first_n = first_n->next;
 	}
 	a->last = first_n;
+	ft_dest_index(a);
+	ft_index(a);
 	b->first = NULL;
 	b->last = NULL;
 	b->size = 0;
@@ -45,6 +47,7 @@ t_node	*ft_new_node(int num)
 		return (NULL);
 	new->next = NULL;
 	new->prev = NULL;
+	new->index = 0;
 	new->val = num;
 	return (new);
 }
@@ -63,4 +66,49 @@ int	ft_stack_clear(t_stack *s)
 		s->first = tmp;
 	}
 	return (0);
+}
+
+void	ft_dest_index(t_stack *s)
+{
+	int		dest_idx;
+	int		idx;
+	t_node	*tmp;
+	t_node	*current;
+
+	if (!s || !s->first)
+		return ;
+	idx = 0;
+	dest_idx = 0;
+	current = stack->first;
+	while (curent)
+	{
+		tmp = stack->first;
+		while (tmp)
+		{
+			if (current->val > tmp->val)
+				dest_idx++;
+			tmp = tmp->next;
+		}
+		current->dst_idx = dest_idx;
+		current->index = idx;
+		current = current->next;
+		idx++;
+	}
+}
+
+void	ft_index(t_stack *s)
+{
+	int		idx;
+	t_node	*tmp;
+
+	if (!s || !s->first)
+		return ;
+	idx = 0;
+	tmp = s->first;
+	while (tmp)
+	{
+		tmp->index = idx;
+		tmp = tmp->next
+		idx++;
+	}
 }

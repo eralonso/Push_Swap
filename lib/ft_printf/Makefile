@@ -6,7 +6,7 @@
 #    By: eralonso <eralonso@student.42barcel>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/10/01 14:33:49 by eralonso          #+#    #+#              #
-#    Updated: 2022/12/02 10:21:16 by eralonso         ###   ########.fr        #
+#    Updated: 2022/12/07 18:00:29 by eralonso         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 #-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/COLORS/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-#
@@ -25,21 +25,15 @@ NAME		= libftprintf.a
 
 #-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-HEADERS/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/#
 HEADER		= ./inc/
-B_HEADER	= ./bonus/inc/
 
 #-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/DIRS/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/#
-LFT_DIR		= libft/
 OBJS_DIR	= objs/
 SRCS_DIR	= src/
 MAIN_DIR	= src/main/
 UTILS_DIR	= src/utils/
-SRCSB_DIR	= bonus/src/
-MAINB_DIR	= bonus/src/main/
-UTILSB_DIR	= bonus/src/utils/
 
 #-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/LIBFT/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-#
-LFT			= libft
-LFTA		= ${LFT_DIR}libft.a
+LIB		= ../lib.a
 
 #-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/FILES/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-#
 MAIN		:= ft_printf
@@ -47,29 +41,16 @@ FLAGS		:= ft_checker ft_flags_checker
 UTILS		:= ft_chars_utils ft_ptr_utils ft_nbrs_utils
 FILES		= ${MAIN} ${FLAGS} ${UTILS}
 
-#-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/BONUS-FILES/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-#
-MAINB		:= $(addsuffix _bonus, ${MAIN})
-FLAGSB		:= $(addsuffix _bonus, ${FLAGS})
-UTILSB		:= $(addsuffix _bonus, ${UTILS})
-FILESB		= ${MAINB} ${FLAGSB} ${UTILSB}
-
 #-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/SRCS/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/#
 UTILS_SRCS	= $(addsuffix .c, $(addprefix ${UTILS_DIR}, ${UTILS}))
 SRCS		:= ${MAIN} ${FLAGS}
 SRCS		:= $(addsuffix .c, $(addprefix ${MAIN_DIR}, ${SRCS}))
 
-#-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/BONUS-SRCS/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/#
-UTILS_SRCSB	= $(addsuffix .c, $(addprefix ${UTILSB_DIR}, ${UTILSB}))
-SRCSB		:= ${MAINB} ${FLAGSB}
-SRCSB		:= $(addsuffix .c, $(addprefix ${MAINB_DIR}, ${SRCSB}))
-
 #-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/OBJS/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/#
 OBJS		= $(addprefix ${OBJS_DIR}, $(addsuffix .o, ${FILES}))
-OBJSB		= $(addprefix ${OBJS_DIR}, $(addsuffix .o, ${FILESB}))
 
 #-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/DEPS/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/#
 DEPS		= $(addsuffix .d, $(basename ${OBJS}))
-DEPSB		= $(addsuffix .d, $(basename ${OBJSB}))
 
 #-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/COMANDS/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-#
 RM			= rm -f
@@ -83,59 +64,37 @@ B_INCLUDE	= -I${B_HEADER}
 #-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/RULES/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-#
 ${OBJS_DIR}%.o	:	${SRCS_DIR}*/%.c ${LFTA} ${MK}
 	@${MKD} $(dir $@)
-	@printf "${PINK}Compiling: ${YELLOW}$<...${DEF_COLOR}							\r"
+	@printf "${PINK}\rCompiling: ${YELLOW}$<...${DEF_COLOR}							\r"
 	@${CC} -MT $@ ${CFLAGS} -MMD -MP ${INCLUDE} -c $< -o $@
 
-${OBJS_DIR}%.o	:	${SRCSB_DIR}*/%.c ${LFTA} ${MK}
-	@${MKD} $(dir $@)
-	@printf "${PINK}Compiling: ${YELLOW}$<...${DEF_COLOR}							\r"
-	@${CC} -MT $@ ${CFLAGS} -MMD -MP ${B_INCLUDE} -c $< -o $@
-
-all		:
-	@$(MAKE) make_libft
+all				:
+	@echo ""
 	@$(MAKE) ${NAME}
 
-bonus		:
-	@$(MAKE) BONUS=1 all
-
-make_libft	:
-	@make -C ${LFT}
-	@echo ""
-
-ifndef BONUS
-${NAME}		::	${OBJS}
-	@cp ${LFTA} ${NAME}
+${NAME}			::	${OBJS}
+	@cp ${LIB} ${NAME}
 	@${AR} ${NAME} ${OBJS}
 	@echo "${GREEN}\nLIBRARY: ft_printf has been created${DEF_COLOR}"
-else
-${NAME}		::	${OBJSB}
-	@cp ${LFTA} ${NAME}
-	@${AR} ${NAME} ${OBJSB}
-	@echo "${GREEN}\nLIBRARY: ft_printf has been created${DEF_COLOR}"
-endif
 
-${NAME}		::
+${NAME}			::
 	@echo "${YELLOW}Nothing to be done for 'ft_printf'\n${DEF_COLOR}"
 
-clean		:
-	@make clean -C ${LFT}
+clean			:
 	@${RM} -r ${OBJS_DIR}
 	@echo "${RED}OBJS && DEPS of 'ft_printf' has been removed${DEF_COLOR}"
 
-fclean		:	
+fclean			:	
 	@$(MAKE) clean
-	@${RM} ${NAME} ${LFTA}
-	@echo "${RED}LIBRARY: 'libft' has been removed${DEF_COLOR}"
+	@${RM} ${NAME}
 	@echo "${RED}LIBRARY: 'ft_printf' has been removed${DEF_COLOR}"
 
-re			:
+re				:
 	@echo ""
 	@$(MAKE) fclean
 	@$(MAKE) all
 	@echo ""
-	@echo "${CIAN}LIBRARY: ft_printf has been remake${DEF_COLOR}"
+	@echo "${CIAN}LIBRARY: 'ft_printf' has been remake${DEF_COLOR}"
 
-.PHONY: all clean fclean re make_libft bonus
+.PHONY: all clean fclean re
 
 -include	${DEPS}
--include	${DEPSB}

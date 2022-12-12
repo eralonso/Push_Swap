@@ -6,7 +6,7 @@
 #    By: eralonso <eralonso@student.42barcel>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/09/18 12:39:13 by eralonso          #+#    #+#              #
-#    Updated: 2022/12/02 10:22:57 by eralonso         ###   ########.fr        #
+#    Updated: 2022/12/07 18:00:19 by eralonso         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -27,9 +27,6 @@ NAME = libft.a
 #----------------------------------->HEADER<-----------------------------------#
 HEADER = libft.h
 
-#------------------------------------>BNAME<-----------------------------------#
-BNAME = .bonus_name
-
 #------------------------------------->SRC<----–-------------------------------#
 SRCS = ft_memset.c ft_bzero.c ft_memcpy.c ft_memmove.c \
 	   ft_memchr.c	ft_memcmp.c	ft_strlen.c ft_isalpha.c \
@@ -39,20 +36,17 @@ SRCS = ft_memset.c ft_bzero.c ft_memcpy.c ft_memmove.c \
 	   ft_atoi.c ft_calloc.c ft_strdup.c ft_substr.c \
 	   ft_strjoin.c ft_strtrim.c ft_split.c ft_itoa.c \
 	   ft_strmapi.c ft_striteri.c ft_putchar_fd.c ft_putstr_fd.c \
-	   ft_putendl_fd.c ft_putnbr_fd.c
-BONUS_SRCS = ft_lstnew_bonus.c ft_lstadd_front_bonus.c ft_lstsize_bonus.c \
-			 ft_lstlast_bonus.c ft_lstadd_back_bonus.c ft_lstclear_bonus.c \
-			 ft_lstdelone_bonus.c ft_lstiter_bonus.c ft_lstmap_bonus.c
-
-#------------------------------------>DIR<-------------------------------------#
-OBJS_DIR = $(shell pwd)/objs/
+	   ft_putendl_fd.c ft_putnbr_fd.c get_next_line.c \
+	   ft_lstnew_bonus.c ft_lstadd_front_bonus.c ft_lstsize_bonus.c \
+	   ft_lstlast_bonus.c ft_lstadd_back_bonus.c ft_lstclear_bonus.c \
+	   ft_lstdelone_bonus.c ft_lstiter_bonus.c ft_lstmap_bonus.c
 
 #------------------------------------>OBJ<-------------------------------------#
+OBJS_DIR = $(shell pwd)/objs/
+
 OBJS = $(addprefix ${OBJS_DIR}, ${SRCS:.c=.o})
-BONUS_OBJS = $(addprefix ${OBJS_DIR}, ${BONUS_SRCS:.c=.o})
 
 DEP = $(addsuffix .d, $(basename ${OBJS}))
-BDEP = $(addsuffix .d, $(basename ${BONUS_OBJS}))
 
 #----------------------------------->COMANDS<----------------------------------#
 CFLAGS = -Wall -Wextra -Werror
@@ -64,10 +58,11 @@ INCLUDE = -I ./
 #------------------------------------>RULES<-----------------------------------#
 ${OBJS_DIR}%.o: %.c Makefile
 	@${MDP} $(dir $@)
-	@printf "${PINK}Compiling: ${YELLOW}$<...${DEF_COLOR}				\r"
+	@printf "${PINK}\rCompiling: ${YELLOW}$<...${DEF_COLOR}				\r"
 	@${CC} -MT $@ ${CFLAGS} -MMD -MP ${INCLUDE} -c $< -o $@
 
 all			: 
+	@echo ""
 	@$(MAKE) ${NAME}
 
 ${NAME}		::	${OBJS}
@@ -77,30 +72,19 @@ ${NAME}		::	${OBJS}
 ${NAME}		::
 	@echo "${YELLOW}Nothing to be done for 'libft'${DEF_COLOR}"
 
-bonus		:
-	@$(MAKE) ${BNAME}
-
-${BNAME}	:: ${OBJS} ${BONUS_OBJS} 
-	@${AR} ${NAME} ${OBJS} ${BONUS_OBJS}
-	@printf "${GREEN}LIBRARY: libft has been created.${DEF_COLOR}\n"
-	@touch $@
-
-${BNAME}	::
-	@echo "${YELLOW}Nothing to be done for 'libft'${DEF_COLOR}"
-
 clean:
-	@${RM} -r ${OBJS_DIR} ${BONUS_OBJS_DIR}
+	@${RM} -r ${OBJS_DIR}
 	@echo "${RED}OBJ && DEPS of 'libft' has been removed.${DEF_COLOR}"
 
 fclean		:
 	@$(MAKE) clean
-	@${RM} ${NAME} ${BNAME}
-	@echo "${RED}LIBRARY: libft has been removed.${DEF_COLOR}"
+	@${RM} ${NAME}
+	@echo "${RED}LIBRARY: 'libft' has been removed.${DEF_COLOR}"
 
 re			:
 	@$(MAKE) fclean
 	@$(MAKE) all
-	@echo "${CIAN}LIARY: libft have been remake${DEF_COLOR}"
+	@echo "${CIAN}LIBRARY: 'libft' has been remake${DEF_COLOR}"
 
 .PHONY: all bonus clean fclean re bonus
 

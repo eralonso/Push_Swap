@@ -6,20 +6,22 @@
 /*   By: eralonso <eralonso@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/01 12:11:11 by eralonso          #+#    #+#             */
-/*   Updated: 2022/12/05 18:33:18 by eralonso         ###   ########.fr       */
+/*   Updated: 2022/12/11 16:04:45 by eralonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef PUSH_SWAP_H
 # define PUSH_SWAP_H
 
-# include	"../ft_printf/bonus/inc/ft_printf_bonus.h"
-# include	<limits.h>
+# include	"../lib/libft/libft.h"
+# include	"../lib/ft_printf/inc/ft_printf.h"
 
 typedef struct s_node {
 	int				val;
 	struct s_node	*next;
 	struct s_node	*prev;
+	int				index;
+	int				dst_idx;
 }				t_node;
 
 typedef struct s_stack {
@@ -44,6 +46,10 @@ int			ft_init_stacks(t_stack *a, t_stack *b, char **input);
 t_node		*ft_new_node(int num);
 int			ft_stack_clear(t_stack *a);
 
+//INDEXERS
+void		ft_index(t_stack *s);
+void		ft_dest_index(t_stack *s);
+
 //MOVEMENTS
 void		ft_sn(t_stack *s, t_stack *o, char *str);
 void		ft_rn(t_stack *s, t_stack *o, char *str);
@@ -63,5 +69,7 @@ int			ft_issorted(t_stack *a);
 //SORTING
 void		ft_sort(t_stack *a, t_stack  *b);
 void		ft_sort_three(t_stack *a, t_stack  *b);
+void		ft_sort_four(t_stack *a, t_stack  *b);
+void		ft_sort_five(t_stack *a, t_stack  *b);
 
 #endif

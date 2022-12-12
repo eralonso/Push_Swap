@@ -6,22 +6,26 @@
 /*   By: eralonso <eralonso@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/03 16:49:06 by eralonso          #+#    #+#             */
-/*   Updated: 2022/12/05 18:29:41 by eralonso         ###   ########.fr       */
+/*   Updated: 2022/12/11 15:53:11 by eralonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include	"push_swap.h"
 
-void	ft_exit(int num)
+void	ft_exit(int num, t_stack *a, t_stack *b)
 {
 	if (num == 1)
-		write(2, "Error\n", ft_strlen("Error\n"));
+		ft_printf(2, "Error\n");
+	if (a && a->first)
+		ft_stack_clear(a);
+	if (b && b->first)
+		ft_stack_clear(b);
 	exit(num);
 }
 
 void	ft_print_move(t_stack *a, t_stack *b, char *str)
 {
-	if (str && ft_printf("%s\n", str) == -1)
+	if (str && ft_printf(1, "%s\n", str) == -1)
 	{
 		ft_stack_clear(a);
 		ft_stack_clear(b);

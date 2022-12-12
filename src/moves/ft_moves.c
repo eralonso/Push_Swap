@@ -6,7 +6,7 @@
 /*   By: eralonso <eralonso@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/02 11:39:09 by eralonso          #+#    #+#             */
-/*   Updated: 2022/12/05 18:28:06 by eralonso         ###   ########.fr       */
+/*   Updated: 2022/12/10 09:42:59 by eralonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,8 @@ void	ft_pa(t_stack *a, t_stack *b)
 	else
 		b->last = NULL;
 	ft_print_move(a, b, "pa");
+	ft_index(a);
+	ft_index(b);
 }
 
 void	ft_pb(t_stack *a, t_stack *b)

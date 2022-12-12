@@ -6,11 +6,11 @@
 /*   By: eralonso <eralonso@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/04 18:56:37 by eralonso          #+#    #+#             */
-/*   Updated: 2022/12/01 12:39:23 by eralonso         ###   ########.fr       */
+/*   Updated: 2022/12/07 09:12:35 by eralonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include	"ft_printf_bonus.h"
+#include	"ft_printf.h"
 
 void	ft_putnchar(char c, int n, t_manager *stk)
 {
@@ -19,7 +19,7 @@ void	ft_putnchar(char c, int n, t_manager *stk)
 	aux = 0;
 	while (n-- > 0 && !stk->info->err)
 	{
-		aux = write(1, &c, 1);
+		aux = write(stk->info->fd, &c, 1);
 		if (aux == -1)
 		{
 			stk->info->err = 1;

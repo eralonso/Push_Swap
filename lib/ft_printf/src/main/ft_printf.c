@@ -6,11 +6,11 @@
 /*   By: eralonso <eralonso@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/02 12:36:13 by eralonso          #+#    #+#             */
-/*   Updated: 2022/12/01 12:40:42 by eralonso         ###   ########.fr       */
+/*   Updated: 2022/12/07 09:12:12 by eralonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include	"ft_printf_bonus.h"
+#include	"ft_printf.h"
 
 int	ft_free_error(t_manager *stack)
 {
@@ -42,7 +42,7 @@ t_flags	*ft_init_flags(void)
 	return (flags);
 }
 
-t_info	*ft_init_info(char *str)
+t_info	*ft_init_info(int fd, char *str)
 {
 	t_info	*info;
 
@@ -53,15 +53,16 @@ t_info	*ft_init_info(char *str)
 	info->str = str;
 	info->c = *str;
 	info->bytes = 0;
+	info->fd = fd;
 	return (info);
 }
 
-int	ft_printf(char const *str, ...)
+int	ft_printf(int fd, char const *str, ...)
 {
 	t_manager	stack;
 	int			bytes;
 
-	stack.info = ft_init_info((char *)str);
+	stack.info = ft_init_info(fd, (char *)str);
 	if (!stack.info)
 		return (-1);
 	va_start(stack.info->args, str);

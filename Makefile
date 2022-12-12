@@ -6,7 +6,7 @@
 #    By: eralonso <eralonso@student.42barcel>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/12/02 09:55:26 by eralonso          #+#    #+#              #
-#    Updated: 2022/12/05 18:34:37 by eralonso         ###   ########.fr        #
+#    Updated: 2022/12/09 10:05:30 by eralonso         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -23,8 +23,8 @@ CIAN		=	\033[1;36m
 NAME		=	push_swap
 CHECKER		=	checker
 
-LIBRARY		=	ft_printf/
-LIB			=	ft_printf/libftprintf.a
+LIBRARY		=	lib/
+LIB			=	lib/lib.a
 
 HEADER		=	./inc/
 
@@ -81,7 +81,6 @@ fclean		:
 	@$(MAKE) fclean -C ${LIBRARY}
 	@${RM} ${NAME} ${CHECKER}
 	@echo "${RED}Program has been removed${DEF_COLOR}"
-	@echo ""
 
 re		:
 	@$(MAKE) fclean
