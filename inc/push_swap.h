@@ -6,7 +6,7 @@
 /*   By: eralonso <eralonso@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/01 12:11:11 by eralonso          #+#    #+#             */
-/*   Updated: 2022/12/11 16:04:45 by eralonso         ###   ########.fr       */
+/*   Updated: 2022/12/12 10:54:56 by eralonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ typedef struct s_stack {
 }				t_stack;
 
 //ERR CONTROL
-void		ft_exit(int num);
+void		ft_exit(int num, t_stack *a, t_stack  *b);
 void		ft_print_move(t_stack *a, t_stack *b, char *str);
 
 //CHECK INPUT
@@ -65,6 +65,9 @@ void		ft_rrr(t_stack *a, t_stack *b);
 
 //UTILS
 int			ft_issorted(t_stack *a);
+t_node		*ft_find_x_node(t_stack *s, int pos);
+int			ft_push_x_node(t_stack *a, t_stack *b, int pos);
+
 
 //SORTING
 void		ft_sort(t_stack *a, t_stack  *b);

@@ -6,7 +6,7 @@
 #    By: eralonso <eralonso@student.42barcel>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/12/02 09:55:26 by eralonso          #+#    #+#              #
-#    Updated: 2022/12/09 10:05:30 by eralonso         ###   ########.fr        #
+#    Updated: 2022/12/12 10:37:06 by eralonso         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -35,7 +35,7 @@ UTIL_DIR	=	src/utils/
 OBJ_DIR		=	obj/
 
 F_EXECS		=	push_swap ft_check_input ft_stacks ft_sort
-F_UTILS		=	ft_err_cntl
+F_UTILS		=	ft_err_cntl ft_management_nodes
 F_MOVES		=	ft_moves ft_combs
 FILES		=	${F_EXECS} ${F_UTILS} ${F_MOVES}
 
@@ -54,7 +54,7 @@ CFLAGS		=	-Wall -Wextra -Werror
 
 ${OBJ_DIR}%.o	:	${SRC_DIR}*/%.c ${MK} ${LIB}
 	@${MKD} $(dir $@)
-	@printf "${PINK}Compiling: ${YELLOW}$<...							\r${DEF_COLOR}"
+	@printf "${PINK}\rCompiling: ${YELLOW}$<...						${DEF_COLOR}\r"
 	@${CC} -MT $@ ${CFLAGS} -MMD -MP ${INCLUDE} -c $< -o $@
 
 all		:

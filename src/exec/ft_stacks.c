@@ -6,7 +6,7 @@
 /*   By: eralonso <eralonso@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/01 18:34:15 by eralonso          #+#    #+#             */
-/*   Updated: 2022/12/11 16:04:55 by eralonso         ###   ########.fr       */
+/*   Updated: 2022/12/12 11:01:30 by eralonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,11 +78,11 @@ void	ft_dest_index(t_stack *s)
 	if (!s || !s->first)
 		return ;
 	idx = 0;
-	dest_idx = 0;
-	current = stack->first;
-	while (curent)
+	current = s->first;
+	while (current)
 	{
-		tmp = stack->first;
+		tmp = s->first;
+		dest_idx = 0;
 		while (tmp)
 		{
 			if (current->val > tmp->val)
@@ -108,7 +108,7 @@ void	ft_index(t_stack *s)
 	while (tmp)
 	{
 		tmp->index = idx;
-		tmp = tmp->next
+		tmp = tmp->next;
 		idx++;
 	}
 }
