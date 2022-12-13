@@ -6,7 +6,7 @@
 #    By: eralonso <eralonso@student.42barcel>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/12/07 13:34:08 by eralonso          #+#    #+#              #
-#    Updated: 2022/12/07 18:13:24 by eralonso         ###   ########.fr        #
+#    Updated: 2022/12/13 09:36:54 by eralonso         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -33,21 +33,27 @@ RM			=	rm -f
 #-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/RULES/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-#
 
 all			:
-	@$(MAKE) ${LBFA}
-	@$(MAKE) ${FTPFA}
+	@$(MAKE) library
+	@$(MAKE) printf
+	@$(MAKE) ${NAME}
 
-${LBFA}		::
+library		::
 	@$(MAKE) -C ${LIBFT_DIR}
-	@cp ${LBFA} ./${NAME}
 
-${LBFA}		::
+library		::
 	@echo -n
 
-${FTPFA}	::
+printf		::
 	@$(MAKE) -C ${PRINTF_DIR}
+
+printf		::
+	@echo -n
+
+${NAME}		:: ${LBFA} ${FTPFA}
+	@cp ${LBFA} ./${NAME}
 	@cp ${FTPFA} ./${NAME}
 
-${FTPFA}	::
+${NAME}		::
 	@echo -n
 
 clean		:
@@ -63,4 +69,4 @@ re			:
 	@$(MAKE) fclean
 	@$(MAKE) all
 
-.PHONY: all clean fclean re
+.PHONY: all clean fclean re library printf

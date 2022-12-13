@@ -1,1 +1,5 @@
-ARGS="1 2 4 3"; ./push_swap $ARGS; printf "Número de movimientos: %i\n" $( expr $( ./push_swap $ARGS | wc -l ) - 1)
+#!/bin/bash
+
+ARG=$(./push_swap $@)
+echo $ARG
+printf "Número de movimientos: %d\n" $( expr $( echo $ARG | wc -w ) - 4 )

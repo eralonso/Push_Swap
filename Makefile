@@ -6,7 +6,7 @@
 #    By: eralonso <eralonso@student.42barcel>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/12/02 09:55:26 by eralonso          #+#    #+#              #
-#    Updated: 2022/12/12 10:37:06 by eralonso         ###   ########.fr        #
+#    Updated: 2022/12/13 11:06:23 by eralonso         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -35,7 +35,7 @@ UTIL_DIR	=	src/utils/
 OBJ_DIR		=	obj/
 
 F_EXECS		=	push_swap ft_check_input ft_stacks ft_sort
-F_UTILS		=	ft_err_cntl ft_management_nodes
+F_UTILS		=	ft_utils ft_management_nodes
 F_MOVES		=	ft_moves ft_combs
 FILES		=	${F_EXECS} ${F_UTILS} ${F_MOVES}
 
@@ -57,37 +57,37 @@ ${OBJ_DIR}%.o	:	${SRC_DIR}*/%.c ${MK} ${LIB}
 	@printf "${PINK}\rCompiling: ${YELLOW}$<...						${DEF_COLOR}\r"
 	@${CC} -MT $@ ${CFLAGS} -MMD -MP ${INCLUDE} -c $< -o $@
 
-all		:
+all				:
 	@$(MAKE) make_lib
 	@$(MAKE) ${NAME}
 
-${NAME}		::	${OBJS}
+${NAME}			::	${OBJS}
 	@${CC} ${CFLAGS} ${OBJS} ${LIB} -o $@
 	@echo "\n${GREEN}Push_swap has been compiled${DEF_COLOR}"
 
-${NAME}		::
+${NAME}			::
 	@echo "${YELLOW}Nothing to be done for 'push_swap'${DEF_COLOR}"
 
-make_lib	:
+make_lib		:
 	@$(MAKE) -C ${LIBRARY}
 
-clean		:
+clean			:
 	@$(MAKE) clean -C ${LIBRARY}
 	@${RM} ${OBJ_DIR}
 	@echo "${RED}All OBJS && DEPS has been removed${DEF_COLOR}"
 
-fclean		:
+fclean			:
 	@$(MAKE) clean
 	@$(MAKE) fclean -C ${LIBRARY}
 	@${RM} ${NAME} ${CHECKER}
 	@echo "${RED}Program has been removed${DEF_COLOR}"
 
-re		:
+re				:
 	@$(MAKE) fclean
 	@$(MAKE) all
 	@echo ""
 	@echo "${CIAN}Push_swap has been recompiled${DEF_COLOR}"
 
-.PHONY		: all clean fclean re make_lib
+.PHONY			: all clean fclean re make_lib
 
--include	${DEPS}
+-include		${DEPS}

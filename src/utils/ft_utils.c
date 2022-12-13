@@ -6,7 +6,7 @@
 /*   By: eralonso <eralonso@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/03 16:49:06 by eralonso          #+#    #+#             */
-/*   Updated: 2022/12/12 10:45:53 by eralonso         ###   ########.fr       */
+/*   Updated: 2022/12/13 13:33:32 by eralonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,18 +29,42 @@ void	ft_print_move(t_stack *a, t_stack *b, char *str)
 		ft_exit(1, a, b);
 }
 
-int	ft_issorted(t_stack *s)
+int	ft_issorted(t_node *n, int size)
 {
 	t_node	*tmp;
 
-	if (!s->first)
+	if (!n)
 		return (0);
-	tmp = s->first;
-	while (tmp->next)
+	tmp = n;
+	while (tmp->next && size > 0)
 	{
 		if (tmp->val > tmp->next->val)
 			return (0);
 		tmp = tmp->next;
+		size--;
 	}
 	return (1);
+}
+
+int	ft_semisorted(t_stack *a, t_stack *b)
+{
+	t_node	*first;
+	t_node	*second;
+	t_node	*last;
+
+	if (!a || !a->first)
+		return (0);
+	first = ft_find_x_node(a, 0);
+	second = ft_find_x_node(a, 1);
+	last = ft_find_x_node(a, a->size - 1);
+	if (second->index == 0 && ft_issorted(a->first->next, a->size - 2))
+		ft_sn(a, b, "sa");
+	else if (first->index == a->size - 1 && ft_issorted(a->first, a->size - 2))
+		ft_rrn(a, b, "rra");
+	else if (last->index == 0 && ft_issorted(a->first->next, a->size - 2))
+		ft_rn(a, b, "ra");
+	ft_index(a);
+	if (ft_issorted(a->first, a->size - 1))
+		return (1);
+	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: eralonso <eralonso@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/12 09:16:54 by eralonso          #+#    #+#             */
-/*   Updated: 2022/12/12 11:03:08 by eralonso         ###   ########.fr       */
+/*   Updated: 2022/12/13 13:52:19 by eralonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,19 +30,20 @@ int	ft_push_x_node(t_stack *a, t_stack *b, int pos)
 	int		size;
 
 	size = a->size;
-	ntp = ft_find_x_node(a, pos);
 	while (a->size == size)
 	{
-		if (ntp->index > a->size / 2)
+		ntp = ft_find_x_node(a, pos);
+		ft_printf(1, "ntp->index == %i\n", ntp->index);
+		if (ft_semisorted(a, b))
+			return (1);
+		if (ntp->index == 1)
+			ft_sn(a, b, "sa");
+		else if (ntp->index > a->size / 2)
 			ft_rrn(a, b, "rra");
 		else if (ntp->index != 0)
 			ft_rn(a, b, "ra");
 		else
-		{
-			if (ft_issorted(a))
-				return (1);
 			ft_pb(a, b);
-		}
 		ft_index(a);
 	}
 	return (0);
