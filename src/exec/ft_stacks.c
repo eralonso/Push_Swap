@@ -6,7 +6,7 @@
 /*   By: eralonso <eralonso@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/01 18:34:15 by eralonso          #+#    #+#             */
-/*   Updated: 2022/12/13 13:57:03 by eralonso         ###   ########.fr       */
+/*   Updated: 2022/12/14 19:21:33 by eralonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ int	ft_init_stacks(t_stack *a, t_stack *b, char **input)
 	}
 	a->last = first_n;
 	ft_dest_index(a);
-	ft_index(a);
+	ft_dest_stack_index(a);
 	b->first = NULL;
 	b->last = NULL;
 	b->size = 0;
@@ -48,6 +48,7 @@ t_node	*ft_new_node(int num)
 	new->next = NULL;
 	new->prev = NULL;
 	new->index = 0;
+	new->dst_idx = 0;
 	new->val = num;
 	return (new);
 }
@@ -96,19 +97,30 @@ void	ft_dest_index(t_stack *s)
 	}
 }
 
-void	ft_index(t_stack *s)
+void	ft_dest_stack_index(t_stack *s)
 {
+	int		dest_idx;
 	int		idx;
 	t_node	*tmp;
+	t_node	*current;
 
 	if (!s || !s->first)
 		return ;
 	idx = 0;
-	tmp = s->first;
-	while (tmp)
+	current = s->first;
+	while (current)
 	{
-		tmp->index = idx;
-		tmp = tmp->next;
+		tmp = s->first;
+		dest_idx = 0;
+		while (tmp)
+		{
+			if (current->val > tmp->val)
+				dest_idx++;
+			tmp = tmp->next;
+		}
+		current->dst_stk_idx = dest_idx;
+		current->index = idx;
+		current = current->next;
 		idx++;
 	}
 }

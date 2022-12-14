@@ -6,7 +6,7 @@
 /*   By: eralonso <eralonso@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/01 12:11:11 by eralonso          #+#    #+#             */
-/*   Updated: 2022/12/13 12:15:09 by eralonso         ###   ########.fr       */
+/*   Updated: 2022/12/14 19:14:37 by eralonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@ typedef struct s_node {
 	struct s_node	*prev;
 	int				index;
 	int				dst_idx;
+	int				dst_stk_idx;
 }				t_node;
 
 typedef struct s_stack {
@@ -47,7 +48,7 @@ t_node		*ft_new_node(int num);
 int			ft_stack_clear(t_stack *a);
 
 //INDEXERS
-void		ft_index(t_stack *s);
+void		ft_dest_stack_index(t_stack *s);
 void		ft_dest_index(t_stack *s);
 
 //MOVEMENTS
@@ -66,7 +67,7 @@ void		ft_rrr(t_stack *a, t_stack *b);
 //UTILS
 int			ft_issorted(t_node *n, int size);
 int			ft_semisorted(t_stack *a, t_stack *b);
-t_node		*ft_find_x_node(t_stack *s, int pos);
+t_node		*ft_find_x_node(t_stack *s, int pos, char idx);
 int			ft_push_x_node(t_stack *a, t_stack *b, int pos);
 
 //SORTING

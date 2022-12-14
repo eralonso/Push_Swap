@@ -6,7 +6,7 @@
 /*   By: eralonso <eralonso@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/02 11:39:09 by eralonso          #+#    #+#             */
-/*   Updated: 2022/12/12 10:39:03 by eralonso         ###   ########.fr       */
+/*   Updated: 2022/12/14 19:16:31 by eralonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,8 +33,8 @@ void	ft_pa(t_stack *a, t_stack *b)
 	else
 		b->last = NULL;
 	ft_print_move(a, b, "pa");
-	ft_index(a);
-	ft_index(b);
+	ft_dest_stack_index(a);
+	ft_dest_stack_index(b);
 }
 
 void	ft_pb(t_stack *a, t_stack *b)
@@ -58,18 +58,24 @@ void	ft_pb(t_stack *a, t_stack *b)
 	else
 		a->last = NULL;
 	ft_print_move(a, b, "pb");
+	ft_dest_stack_index(a);
+	ft_dest_stack_index(b);
 }
 
 void	ft_sn(t_stack *s, t_stack *o, char *str)
 {
-	int	tmp;
+	t_node	*tmp;
 
 	if (s->size < 2)
 		return ;
-	tmp = s->first->val;
-	s->first->val = s->first->next->val;
-	s->first->next->val = tmp;
+	tmp = s->first;
+	s->first = s->first->next;
+	tmp->prev = s->first;
+	tmp->next = s->first->next;
+	s->first->next = tmp;
+	s->first->prev = NULL;
 	ft_print_move(s, o, str);
+	ft_dest_stack_index(s);
 }
 
 void	ft_rn(t_stack *s, t_stack *o, char *str)
@@ -86,6 +92,7 @@ void	ft_rn(t_stack *s, t_stack *o, char *str)
 	s->last = tmp;
 	tmp->next = NULL;
 	ft_print_move(s, o, str);
+	ft_dest_stack_index(s);
 }
 
 void	ft_rrn(t_stack *s, t_stack *o, char *str)
@@ -102,4 +109,5 @@ void	ft_rrn(t_stack *s, t_stack *o, char *str)
 	s->first = tmp;
 	tmp->prev = NULL;
 	ft_print_move(s, o, str);
+	ft_dest_stack_index(s);
 }

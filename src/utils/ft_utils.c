@@ -6,7 +6,7 @@
 /*   By: eralonso <eralonso@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/03 16:49:06 by eralonso          #+#    #+#             */
-/*   Updated: 2022/12/13 13:33:32 by eralonso         ###   ########.fr       */
+/*   Updated: 2022/12/14 19:23:40 by eralonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,16 +54,17 @@ int	ft_semisorted(t_stack *a, t_stack *b)
 
 	if (!a || !a->first)
 		return (0);
-	first = ft_find_x_node(a, 0);
-	second = ft_find_x_node(a, 1);
-	last = ft_find_x_node(a, a->size - 1);
+	first = ft_find_x_node(a, 0, 's');
+	second = ft_find_x_node(a, 1, 's');
+	last = ft_find_x_node(a, a->size - 1, 's');
 	if (second->index == 0 && ft_issorted(a->first->next, a->size - 2))
 		ft_sn(a, b, "sa");
 	else if (first->index == a->size - 1 && ft_issorted(a->first, a->size - 2))
 		ft_rrn(a, b, "rra");
 	else if (last->index == 0 && ft_issorted(a->first->next, a->size - 2))
 		ft_rn(a, b, "ra");
-	ft_index(a);
+	ft_dest_stack_index(a);
+	ft_dest_stack_index(b);
 	if (ft_issorted(a->first, a->size - 1))
 		return (1);
 	return (0);
