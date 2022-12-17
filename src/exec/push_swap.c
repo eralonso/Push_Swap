@@ -6,7 +6,7 @@
 /*   By: eralonso <eralonso@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/01 09:24:31 by eralonso          #+#    #+#             */
-/*   Updated: 2022/12/13 11:02:06 by eralonso         ###   ########.fr       */
+/*   Updated: 2022/12/17 09:18:36 by eralonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,11 +58,11 @@ int	main(int ac, char **av)
 	if (ft_issorted(a.first, a.size - 1))
 		ft_exit(0, &a, &b);
 	ft_sort(&a, &b);
-	if (ft_issorted(a.first, a.size - 1))
+	/*if (ft_issorted(a.first, a.size - 1))
 		ft_printf(1, "Stack a is sorted\n");
 	else
 		ft_printf(1, "Stack a is not sorted\n");
-	ft_stack_clear(&a);
+	*/ft_stack_clear(&a);
 	ft_stack_clear(&b);
 	ft_test_move(a, b);
 	return (0);

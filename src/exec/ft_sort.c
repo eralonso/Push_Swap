@@ -6,7 +6,7 @@
 /*   By: eralonso <eralonso@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/05 17:21:50 by eralonso          #+#    #+#             */
-/*   Updated: 2022/12/14 19:17:54 by eralonso         ###   ########.fr       */
+/*   Updated: 2022/12/17 19:27:44 by eralonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,8 +36,13 @@ void	ft_sort_three(t_stack *a, t_stack *b)
 		ft_rrn(a, b, "rra");
 	else if (a->first->val > a->last->val)
 		ft_rn(a, b, "ra");
-	if (!ft_issorted(a->first, a->size - 1))
+	if (!ft_issorted(a->first, a->size - 1)\
+		   	&& ft_issorted(b->first, b->size - 1))
+		ft_ss(a, b);
+	else if (!ft_issorted(a->first, a->size - 1))
 		ft_sn(a, b, "sa");
+	else if (ft_issorted(b->first, b->size - 1))
+		ft_sn(b, a, "sb");
 }
 
 void	ft_sort_four(t_stack *a, t_stack *b)
@@ -63,12 +68,32 @@ void	ft_sort_four(t_stack *a, t_stack *b)
 
 void	ft_sort_five(t_stack *a, t_stack *b)
 {
-	if (ft_push_x_node(a, b, 0))
-		return ;
-	if (ft_push_x_node(a, b, 1))
-		ft_pa(a, b);
-	else
+	t_node	*first;
+	t_node	*ntp;
+
+	first = ft_find_x_node(a, 0, 's');
+	ntp = ft_find_x_node(a, 1, 's');
+	if (ntp->index > first->index && ntp->index > ft_find_x_node\
+			(a, a->size - 1, 's')->index)
+		ntp = ft_find_x_node(a, a->size - 1, 's');
+	if (ntp->index < first->index)
 	{
+		first = ntp;
+		ntp = ft_find_x_node(a, 0, 's');
+	}
+	if (ft_push_x_node(a, b, first->dst_idx) && first->dst_idx == 0)
+		return ;
+	if (ft_push_x_node(a, b, ntp->dst_stk_idx))
+		ft_pa(a, b);
+	ft_sort_three(a, b);
+	if (b->size)
+		ft_pa(a, b);
+	if (a->first->dst_stk_idx == a->size - 1)
+		ft_rn(a, b, "ra");
+	ft_pa(a, b);
+}
+
+		/*
 		if (a->first->val < a->first->next->val)
 			ft_rrn(a, b, "rra");
 		else if (a->first->val > a->last->val)
@@ -81,7 +106,4 @@ void	ft_sort_five(t_stack *a, t_stack *b)
 			ft_sn(b, a, "sb");
 		ft_pa(a, b);
 		ft_pa(a, b);
-		ft_dest_stack_index(a);
-		ft_dest_stack_index(b);
-	}
-}
+		*/
