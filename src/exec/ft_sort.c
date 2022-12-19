@@ -6,7 +6,7 @@
 /*   By: eralonso <eralonso@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/05 17:21:50 by eralonso          #+#    #+#             */
-/*   Updated: 2022/12/17 19:27:44 by eralonso         ###   ########.fr       */
+/*   Updated: 2022/12/19 17:37:17 by eralonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,8 +24,8 @@ void	ft_sort(t_stack *a, t_stack *b)
 		ft_sort_four(a, b);
 	else if (a->size == 5)
 		ft_sort_five(a, b);
-	else if (a->size <= 100)
-		return ;
+	else if (a->size >= 6)
+		ft_sort_massive(a, b);
 }
 
 void	ft_sort_three(t_stack *a, t_stack *b)
@@ -36,8 +36,8 @@ void	ft_sort_three(t_stack *a, t_stack *b)
 		ft_rrn(a, b, "rra");
 	else if (a->first->val > a->last->val)
 		ft_rn(a, b, "ra");
-	if (!ft_issorted(a->first, a->size - 1)\
-		   	&& ft_issorted(b->first, b->size - 1))
+	if (!ft_issorted(a->first, a->size - 1)
+		&& ft_issorted(b->first, b->size - 1))
 		ft_ss(a, b);
 	else if (!ft_issorted(a->first, a->size - 1))
 		ft_sn(a, b, "sa");
@@ -73,8 +73,8 @@ void	ft_sort_five(t_stack *a, t_stack *b)
 
 	first = ft_find_x_node(a, 0, 's');
 	ntp = ft_find_x_node(a, 1, 's');
-	if (ntp->index > first->index && ntp->index > ft_find_x_node\
-			(a, a->size - 1, 's')->index)
+	if (ntp->index > first->index && ntp->index > ft_find_x_node
+		(a, a->size - 1, 's')->index)
 		ntp = ft_find_x_node(a, a->size - 1, 's');
 	if (ntp->index < first->index)
 	{
@@ -92,18 +92,3 @@ void	ft_sort_five(t_stack *a, t_stack *b)
 		ft_rn(a, b, "ra");
 	ft_pa(a, b);
 }
-
-		/*
-		if (a->first->val < a->first->next->val)
-			ft_rrn(a, b, "rra");
-		else if (a->first->val > a->last->val)
-			ft_rn(a, b, "ra");
-		if (!ft_issorted(a->first, a->size - 1) && ft_issorted(b->first, 1))
-			ft_ss(a, b);
-		else if (!ft_issorted(a->first, a->size - 1))
-			ft_sn(a, b, "sa");
-		else if (ft_issorted(b->first, 1))
-			ft_sn(b, a, "sb");
-		ft_pa(a, b);
-		ft_pa(a, b);
-		*/
