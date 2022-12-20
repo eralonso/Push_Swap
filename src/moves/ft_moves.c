@@ -6,65 +6,45 @@
 /*   By: eralonso <eralonso@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/02 11:39:09 by eralonso          #+#    #+#             */
-/*   Updated: 2022/12/14 19:16:31 by eralonso         ###   ########.fr       */
+/*   Updated: 2022/12/20 19:41:49 by eralonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include	"push_swap.h"
 
-void	ft_pa(t_stack *a, t_stack *b)
+void	ft_pn(t_stack *dst, t_stack *org)
 {
 	t_node	*tmp;
+	char	*str;
 
-	if (!b->first)
+	if (!org->first)
 		return ;
-	tmp = a->first;
+	tmp = dst->first;
 	if (tmp)
-		a->first->prev = b->first;
+		org->first->prev = dst->first;
 	else
-		a->last = b->first;
-	a->first = b->first;
-	b->first = b->first->next;
-	a->first->next = tmp;
-	b->size--;
-	a->size++;
-	if (b->size)
-		b->first->prev = NULL;
+		dst->last = org->first;
+	dst->first = org->first;
+	org->first = org->first->next;
+	dst->first->next = tmp;
+	org->size--;
+	dst->size++;
+	if (org->size)
+		org->first->prev = NULL;
 	else
-		b->last = NULL;
-	ft_print_move(a, b, "pa");
-	ft_dest_stack_index(a);
-	ft_dest_stack_index(b);
+		org->last = NULL;
+	str = "pb";
+	if (dst->id == 'a')
+		str = "pa";
+	ft_print_move(dst, org, str);
+	ft_dest_stack_index(dst);
+	ft_dest_stack_index(org);
 }
 
-void	ft_pb(t_stack *a, t_stack *b)
+void	ft_sn(t_stack *s, t_stack *o, int rep)
 {
 	t_node	*tmp;
-
-	if (!a->first)
-		return ;
-	tmp = b->first;
-	if (tmp)
-		b->first->prev = a->first;
-	else
-		b->last = a->first;
-	b->first = a->first;
-	a->first = a->first->next;
-	b->first->next = tmp;
-	a->size--;
-	b->size++;
-	if (a->size)
-		a->first->prev = NULL;
-	else
-		a->last = NULL;
-	ft_print_move(a, b, "pb");
-	ft_dest_stack_index(a);
-	ft_dest_stack_index(b);
-}
-
-void	ft_sn(t_stack *s, t_stack *o, char *str)
-{
-	t_node	*tmp;
+	char	*str;
 
 	if (s->size < 2)
 		return ;
@@ -72,15 +52,22 @@ void	ft_sn(t_stack *s, t_stack *o, char *str)
 	s->first = s->first->next;
 	tmp->prev = s->first;
 	tmp->next = s->first->next;
+	tmp->next->prev = tmp;
 	s->first->next = tmp;
 	s->first->prev = NULL;
+	str = "sa";
+	if (s->id == 'b')
+		str = "sb";
+	if (rep)
+		str = "NULL";
 	ft_print_move(s, o, str);
 	ft_dest_stack_index(s);
 }
 
-void	ft_rn(t_stack *s, t_stack *o, char *str)
+void	ft_rn(t_stack *s, t_stack *o, int rep)
 {
 	t_node	*tmp;
+	char	*str;
 
 	if (s->size < 2)
 		return ;
@@ -91,13 +78,19 @@ void	ft_rn(t_stack *s, t_stack *o, char *str)
 	s->last->next = tmp;
 	s->last = tmp;
 	tmp->next = NULL;
+	str = "ra";
+	if (s->id == 'b')
+		str = "rb";
+	if (rep)
+		str = "NULL";
 	ft_print_move(s, o, str);
 	ft_dest_stack_index(s);
 }
 
-void	ft_rrn(t_stack *s, t_stack *o, char *str)
+void	ft_rrn(t_stack *s, t_stack *o, int rep)
 {
 	t_node	*tmp;
+	char	*str;
 
 	if (s->size < 2)
 		return ;
@@ -108,6 +101,11 @@ void	ft_rrn(t_stack *s, t_stack *o, char *str)
 	s->first->prev = tmp;
 	s->first = tmp;
 	tmp->prev = NULL;
+	str = "rra";
+	if (s->id == 'b')
+		str = "rrb";
+	if (rep)
+		str = "NULL";
 	ft_print_move(s, o, str);
 	ft_dest_stack_index(s);
 }

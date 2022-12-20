@@ -6,7 +6,7 @@
 /*   By: eralonso <eralonso@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/03 16:49:06 by eralonso          #+#    #+#             */
-/*   Updated: 2022/12/17 10:27:32 by eralonso         ###   ########.fr       */
+/*   Updated: 2022/12/20 19:55:17 by eralonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,26 +46,27 @@ int	ft_issorted(t_node *n, int size)
 	return (1);
 }
 
-int	ft_semisorted(t_stack *a, t_stack *b)
+int	ft_semisorted(t_stack *dst, t_stack *org)
 {
 	t_node	*first;
 	t_node	*second;
 	t_node	*last;
 
-	if (!a || !a->first)
+	if (!dst || dst->size < 3)
 		return (0);
-	first = ft_find_x_node(a, 0, 's');
-	second = ft_find_x_node(a, 1, 's');
-	last = ft_find_x_node(a, a->size - 1, 's');
-	if (second->index == 0 && ft_issorted(a->first->next, a->size - 2))
-		ft_sn(a, b, "sa");
-	else if (first->index == a->size - 1 && ft_issorted(a->first, a->size - 2))
-		ft_rrn(a, b, "rra");
-	else if (last->index == 0 && ft_issorted(a->first->next, a->size - 2))
-		ft_rn(a, b, "ra");
-	ft_dest_stack_index(a);
-	ft_dest_stack_index(b);
-	if (ft_issorted(a->first, a->size - 1))
+	first = ft_find_x_node(dst, 0, 's');
+	second = ft_find_x_node(dst, 1, 's');
+	last = ft_find_x_node(dst, dst->size - 1, 's');
+	if (second->index == 0 && ft_issorted(dst->first->next, dst->size - 2))
+		ft_sn(dst, org, 0);
+	else if (first->index == dst->size - 1
+		&& ft_issorted(dst->first, dst->size - 2))
+		ft_rrn(dst, org, 0);
+	else if (last->index == 0 && ft_issorted(dst->first->next, dst->size - 2))
+		ft_rn(dst, org, 0);
+	ft_dest_stack_index(dst);
+	ft_dest_stack_index(org);
+	if (ft_issorted(dst->first, dst->size - 1))
 		return (1);
 	return (0);
 }

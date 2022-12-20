@@ -6,7 +6,7 @@
 /*   By: eralonso <eralonso@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/12 09:16:54 by eralonso          #+#    #+#             */
-/*   Updated: 2022/12/19 17:34:35 by eralonso         ###   ########.fr       */
+/*   Updated: 2022/12/20 19:55:35 by eralonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,27 +29,28 @@ t_node	*ft_find_x_node(t_stack *s, int pos, char idx)
 	return (tmp);
 }
 
-int	ft_push_x_node(t_stack *a, t_stack *b, int pos)
+int	ft_push_x_node(t_stack *dst, t_stack *org, int pos, int sort)
 {
 	t_node	*ntp;
 	int		size;
 
-	size = a->size;
-	ntp = ft_find_x_node(a, pos, 's');
-	while (a->size == size)
+	size = org->size;
+	ntp = ft_find_x_node(org, pos, 's');
+	while (org->size == size)
 	{
-		if (ft_semisorted(a, b))
+		if (sort && ft_semisorted(org, dst))
 			return (1);
-		if (ntp->index == 1 && ntp->next->dst_stk_idx != \
-				ntp->dst_stk_idx + 1 && ntp->next->dst_stk_idx != a->size - 1)
-			ft_sn(a, b, "sa");
-		else if (ntp->index > a->size / 2)
-			ft_rrn(a, b, "rra");
+		if (ntp->index == 1 && ntp->next && ntp->next->dst_stk_idx
+			!= ntp->dst_stk_idx + 1
+			&& ntp->next->dst_stk_idx != org->size - 1)
+			ft_sn(org, dst, 0);
+		else if (ntp->index > org->size / 2)
+			ft_rrn(org, dst, 0);
 		else if (ntp->index != 0)
-			ft_rn(a, b, "ra");
+			ft_rn(org, dst, 0);
 		else
-			ft_pb(a, b);
-		ft_dest_stack_index(a);
+			ft_pn(dst, org);
+		ft_dest_stack_index(org);
 	}
 	return (0);
 }

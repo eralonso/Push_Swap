@@ -6,7 +6,7 @@
 /*   By: eralonso <eralonso@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/01 18:34:15 by eralonso          #+#    #+#             */
-/*   Updated: 2022/12/14 19:21:33 by eralonso         ###   ########.fr       */
+/*   Updated: 2022/12/20 18:40:35 by eralonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,11 +30,13 @@ int	ft_init_stacks(t_stack *a, t_stack *b, char **input)
 		first_n = first_n->next;
 	}
 	a->last = first_n;
+	a->id = 'a';
 	ft_dest_index(a);
 	ft_dest_stack_index(a);
 	b->first = NULL;
 	b->last = NULL;
 	b->size = 0;
+	b->id = 'b';
 	return (1);
 }
 
