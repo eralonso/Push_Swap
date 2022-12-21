@@ -6,7 +6,7 @@
 /*   By: eralonso <eralonso@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/19 17:38:55 by eralonso          #+#    #+#             */
-/*   Updated: 2022/12/20 20:01:33 by eralonso         ###   ########.fr       */
+/*   Updated: 2022/12/21 14:03:01 by eralonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,12 +19,11 @@ void	ft_sort_massive(t_stack *a, t_stack *b)
 	int	i;
 	int	size;
 
-	if (a->size >= 6 && a->size <= 20)
-		n_chunks = 2;
-	else if (a->size > 20 && a->size <= 150)
-		n_chunks = 4;
-	else
-		n_chunks = 8;
+	n_chunks = 10;
+	if (a->size >= 6 && a->size <= 30)
+		n_chunks = 3;
+	else if (a->size > 30 && a->size <= 180)
+		n_chunks = 6;
 	s_chunks = a->size / n_chunks + (a->size % 4 != 0);
 	i = 0;
 	size = a->size;
@@ -52,17 +51,45 @@ void	ft_to_b(t_stack *a, t_stack *b, int s_chunks, int level)
 	min = s_chunks * level;
 	max = s_chunks * (level + 1);
 	ft_pn(b, a);
-	if (b->first->dst_idx >= (max / 2) + min
-		|| b->first->dst_idx > b->last->dst_idx)
-		ft_rn(b, a, 0);
-	if (b->size > 2 && b->first->dst_idx >= (max / 4) + min)
-		ft_sn(b, a, 0);
+	if (b->first->dst_idx >= (s_chunks / 2) + min)
+	{
+		if (a->size > 1 && (a->first->dst_idx < min
+				|| a->first->dst_idx >= max))
+			ft_rr(a, b);
+		else
+			ft_rn(b, a, 0);
+	}
+	//if (b->size > 2 && b->first->dst_idx <= (max / 4) + min)
+	//	ft_sn(b, a, 0);
 }
 
 void	ft_to_a(t_stack *a, t_stack *b)
 {
+	t_node	*first;
+	t_node	*second;
+	t_node	*ntp;
+	int		flag;
+
 	while (b->first)
-		ft_push_x_node(a, b, b->size - 1, 0);
+	{
+		flag = 0;
+		first = ft_find_x_node(b, b->size - 1, 's');
+		second = ft_find_x_node(b, b->size - 2, 's');
+		ntp = first;
+		if ((first->index > b->size / 2 && second->index > first->index)
+			|| (first->index < b->size / 2 && second->index < first->index))
+		{
+			ntp = second;
+			flag = 1;
+		}
+		ft_push_x_node(a, b, ntp->dst_stk_idx, 0);
+		if (flag)
+		{
+			ft_push_x_node(a, b, b->size - 1, 0);
+			ft_sn(a, b, 0);
+		}
+		//ft_test_sort(*a, *b);
+	}
 }
 		/*if (b->first->dst_idx < b->last->dst_idx)
 			ft_rrn(b, a, 0);

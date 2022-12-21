@@ -6,7 +6,7 @@
 /*   By: eralonso <eralonso@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/03 16:49:06 by eralonso          #+#    #+#             */
-/*   Updated: 2022/12/20 19:55:17 by eralonso         ###   ########.fr       */
+/*   Updated: 2022/12/21 12:17:27 by eralonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,9 @@ void	ft_exit(int num, t_stack *a, t_stack *b)
 
 void	ft_print_move(t_stack *a, t_stack *b, char *str)
 {
-	if (str && ft_printf(1, "%s\n", str) == -1)
+	if (!str)
+		return ;
+	if (ft_printf(1, "%s\n", str) == -1)
 		ft_exit(1, a, b);
 }
 

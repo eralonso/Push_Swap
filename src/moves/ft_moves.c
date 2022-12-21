@@ -6,7 +6,7 @@
 /*   By: eralonso <eralonso@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/02 11:39:09 by eralonso          #+#    #+#             */
-/*   Updated: 2022/12/20 19:41:49 by eralonso         ###   ########.fr       */
+/*   Updated: 2022/12/21 12:30:20 by eralonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ void	ft_pn(t_stack *dst, t_stack *org)
 		return ;
 	tmp = dst->first;
 	if (tmp)
-		org->first->prev = dst->first;
+		tmp->prev = org->first;
 	else
 		dst->last = org->first;
 	dst->first = org->first;
@@ -52,14 +52,15 @@ void	ft_sn(t_stack *s, t_stack *o, int rep)
 	s->first = s->first->next;
 	tmp->prev = s->first;
 	tmp->next = s->first->next;
-	tmp->next->prev = tmp;
+	if (tmp->next)
+		tmp->next->prev = tmp;
 	s->first->next = tmp;
 	s->first->prev = NULL;
 	str = "sa";
 	if (s->id == 'b')
 		str = "sb";
 	if (rep)
-		str = "NULL";
+		str = NULL;
 	ft_print_move(s, o, str);
 	ft_dest_stack_index(s);
 }
@@ -82,7 +83,7 @@ void	ft_rn(t_stack *s, t_stack *o, int rep)
 	if (s->id == 'b')
 		str = "rb";
 	if (rep)
-		str = "NULL";
+		str = NULL;
 	ft_print_move(s, o, str);
 	ft_dest_stack_index(s);
 }
@@ -95,7 +96,7 @@ void	ft_rrn(t_stack *s, t_stack *o, int rep)
 	if (s->size < 2)
 		return ;
 	tmp = s->last;
-	s->last = s->last->prev;
+	s->last = tmp->prev;
 	s->last->next = NULL;
 	tmp->next = s->first;
 	s->first->prev = tmp;
@@ -105,7 +106,7 @@ void	ft_rrn(t_stack *s, t_stack *o, int rep)
 	if (s->id == 'b')
 		str = "rrb";
 	if (rep)
-		str = "NULL";
+		str = NULL;
 	ft_print_move(s, o, str);
 	ft_dest_stack_index(s);
 }
