@@ -6,7 +6,7 @@
 /*   By: eralonso <eralonso@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/01 12:11:11 by eralonso          #+#    #+#             */
-/*   Updated: 2022/12/22 14:43:51 by eralonso         ###   ########.fr       */
+/*   Updated: 2022/12/22 17:50:15 by eralonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,6 +69,7 @@ int			ft_issorted(t_node *n, int size);
 int			ft_semisorted(t_stack *a, t_stack *b);
 t_node		*ft_find_x_node(t_stack *s, int pos, char idx);
 int			ft_push_x_node(t_stack *a, t_stack *b, int pos, int sort);
+void		ft_calc_mtp(t_node *node, int size);
 
 //SORTING
 void		ft_sort(t_stack *a, t_stack *b);
@@ -78,9 +79,9 @@ void		ft_sort_five(t_stack *a, t_stack *b);
 void		ft_sort_massive(t_stack *a, t_stack *b);
 void		ft_to_b(t_stack *a, t_stack *b, int s_chunks, int level);
 void		ft_to_a(t_stack *a, t_stack *b);
-void		ft_calc_mtp(t_node *node, int size);
 int			ft_optimizer(t_stack *a, t_stack *b);
-void		ft_push_optim(t_stack *a, t_stack *b, t_node *ntp, int flag);
+void		ft_push_optim(t_stack *a, t_stack *b, int flag);
+void		ft_standard_sort(t_stack *a, t_stack *b);
 
 //TESTING
 void		ft_test_sort(t_stack a, t_stack b);

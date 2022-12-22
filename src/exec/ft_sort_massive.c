@@ -6,7 +6,7 @@
 /*   By: eralonso <eralonso@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/19 17:38:55 by eralonso          #+#    #+#             */
-/*   Updated: 2022/12/22 14:45:06 by eralonso         ###   ########.fr       */
+/*   Updated: 2022/12/22 20:05:29 by eralonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,37 +67,23 @@ void	ft_to_a(t_stack *a, t_stack *b)
 
 	while (b->first)
 	{
-		if (b->size > 2)
-			flag = ft_optimizer(a, b);
-		if (flag)
+		if (ft_optimizer(a, b) == 4)
 		{
-			flag = 0;
 			first = ft_find_x_node(b, b->size - 1, 's');
 			second = ft_find_x_node(b, b->size - 2, 's');
 			ntp = first;
 			if ((first->index > b->size / 2 && second->index > first->index)
 				|| (first->index < b->size / 2 && second->index < first->index))
-			{
 				ntp = second;
-				flag = 1;
-			}
+			flag = (b->size - 1) - ntp->dst_stk_idx;
 			ft_push_x_node(a, b, ntp->dst_stk_idx, 0);
-			if (flag)
+			if (flag == 1)
 			{
 				ft_push_x_node(a, b, b->size - 1, 0);
 				ft_sn(a, b, 0);
 			}
-			flag = 1;
 		}
 	}
-}
-
-void	ft_calc_mtp(t_node *node, int size)
-{
-	if (node->index > size)
-		node->mtp = size - node->index;
-	else
-		node->mtp = node->index;
 }
 
 int	ft_optimizer(t_stack *a, t_stack *b)
@@ -106,74 +92,70 @@ int	ft_optimizer(t_stack *a, t_stack *b)
 	t_node	*sbig;
 	t_node	*tbig;
 	int		flag;
-
-	big = ft_find_x_node(b, b->size - 1, 's');
-	sbig = ft_find_x_node(b, b->size - 2, 's');
-	tbig = ft_find_x_node(b, b->size - 3, 's');
-	ft_calc_mtp(big, b->size);
-	ft_calc_mtp(sbig, b->size);
-	ft_calc_mtp(tbig, b->size);
-	flag = 0;
-	if (big->mtp - 3 < sbig->mtp && big->mtp - 3 < tbig->mtp)
+	
+	flag = 4;
+	if (b->size > 6)
+	{
+		big = ft_find_x_node(b, b->size - 1, 's');
+		sbig = ft_find_x_node(b, b->size - 2, 's');
+		tbig = ft_find_x_node(b, b->size - 3, 's');
+		ft_calc_mtp(big, b->size);
+		ft_calc_mtp(sbig, b->size);
+		ft_calc_mtp(tbig, b->size);
+		//if (big->mtp - 3 < sbig->mtp && big->mtp - 3 < tbig->mtp)
 		flag = 1;
-	else if (sbig->mtp < big->mtp + 3 && sbig->mtp < tbig->mtp)
-		flag = 2;
-	else if (tbig->mtp < big->mtp + 3 && tbig->mtp < sbig->mtp)
-		flag = 3;
-	if (flag != 0)
-		ft_push_optim(a, b, ft_find_x_node(b, b->size - flag, 's'), flag);
+		if (sbig->mtp < big->mtp - 3 && sbig->mtp < tbig->mtp)
+			flag = 2;
+		else if (tbig->mtp < big->mtp - 3 && tbig->mtp < sbig->mtp)
+			flag = 3;
+		ft_push_x_node(a, b, b->size - flag, 0);
+		ft_push_optim(a, b, flag);
+	}
 	return (flag);
 }
 
-void	ft_push_optim(t_stack *a, t_stack *b, t_node *ntp, int flag)
+void	ft_push_optim(t_stack *a, t_stack *b, int flag)
 {
 	t_node	*big;
 	t_node	*sbig;
-	t_node	*tbig;
 
 	big = ft_find_x_node(b, b->size - 1, 's');
 	sbig = ft_find_x_node(b, b->size - 2, 's');
-	tbig = ft_find_x_node(b, b->size - 3, 's');
-	ft_push_x_node(a, b, ntp->dst_stk_idx, 0);
+	ft_calc_mtp(big, b->size);
+	ft_calc_mtp(sbig, b->size);
 	if (flag == 1)
 	{
-		ft_calc_mtp(sbig, b->size);
-		ft_calc_mtp(tbig, b->size);
-		if (sbig->mtp < tbig->mtp)
+		if (big->mtp < sbig->mtp)
 		{
+			ft_push_x_node(a, b, big->dst_stk_idx, 0);
 			ft_push_x_node(a, b, sbig->dst_stk_idx, 0);
-			ft_push_x_node(a, b, tbig->dst_stk_idx, 0);
 		}
 		else
 		{
-			ft_push_x_node(a, b, tbig->dst_stk_idx, 0);
 			ft_push_x_node(a, b, sbig->dst_stk_idx, 0);
+			ft_push_x_node(a, b, big->dst_stk_idx, 0);
 			ft_sn(a, b, 0);
 		}
 	}
-	if (flag == 2)
+	else if (flag == 2)
 	{
-		ft_calc_mtp(big, b->size);
-		ft_calc_mtp(tbig, b->size);
-		if (big->mtp < tbig->mtp)
+		if (big->mtp < sbig->mtp)
 		{
 			ft_push_x_node(a, b, big->dst_stk_idx, 0);
 			ft_sn(a, b, 0);
-			ft_push_x_node(a, b, tbig->dst_stk_idx, 0);
+			ft_push_x_node(a, b, sbig->dst_stk_idx, 0);
 		}
 		else
 		{
-			ft_push_x_node(a, b, tbig->dst_stk_idx, 0);
+			ft_push_x_node(a, b, sbig->dst_stk_idx, 0);
 			ft_rn(a, b, 0);
 			ft_push_x_node(a, b, big->dst_stk_idx, 0);
 			ft_sn(a, b, 0);
 			ft_rrn(a, b, 0);
 		}
 	}
-	if (flag == 3)
+	else if (flag == 3)
 	{
-		ft_calc_mtp(big, b->size);
-		ft_calc_mtp(sbig, b->size);
 		ft_rn(a, b, 0);
 		if (big->mtp < sbig->mtp)
 		{

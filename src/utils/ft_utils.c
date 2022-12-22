@@ -6,7 +6,7 @@
 /*   By: eralonso <eralonso@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/03 16:49:06 by eralonso          #+#    #+#             */
-/*   Updated: 2022/12/21 12:17:27 by eralonso         ###   ########.fr       */
+/*   Updated: 2022/12/22 17:46:23 by eralonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,4 +71,12 @@ int	ft_semisorted(t_stack *dst, t_stack *org)
 	if (ft_issorted(dst->first, dst->size - 1))
 		return (1);
 	return (0);
+}
+
+void	ft_calc_mtp(t_node *node, int size)
+{
+	if (node->index > size / 2)
+		node->mtp = size - node->index;
+	else
+		node->mtp = node->index;
 }
