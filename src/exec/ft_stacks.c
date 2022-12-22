@@ -6,7 +6,7 @@
 /*   By: eralonso <eralonso@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/01 18:34:15 by eralonso          #+#    #+#             */
-/*   Updated: 2022/12/21 12:09:33 by eralonso         ###   ########.fr       */
+/*   Updated: 2022/12/22 12:07:37 by eralonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,8 +49,6 @@ t_node	*ft_new_node(int num)
 		return (NULL);
 	new->next = NULL;
 	new->prev = NULL;
-	new->index = 0;
-	new->dst_idx = 0;
 	new->val = num;
 	return (new);
 }

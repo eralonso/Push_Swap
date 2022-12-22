@@ -6,7 +6,7 @@
 #    By: eralonso <eralonso@student.42barcel>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/10/01 14:33:49 by eralonso          #+#    #+#              #
-#    Updated: 2022/12/13 09:16:38 by eralonso         ###   ########.fr        #
+#    Updated: 2022/12/21 18:44:55 by eralonso         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 #-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/COLORS/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-#
@@ -33,21 +33,23 @@ MAIN_DIR	= src/main/
 UTILS_DIR	= src/utils/
 
 #-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/LIBFT/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-#
-LIB		= ../libft/libft.a
+LIB			= ../libft/libft.a
+DEPS_SRCS	= ../libft/objs/*.o
 
 #-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/FILES/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-#
-MAIN		:= ft_printf
-FLAGS		:= ft_checker ft_flags_checker
+MAIN		:= ft_printf ft_checker ft_flags_checker
 UTILS		:= ft_chars_utils ft_ptr_utils ft_nbrs_utils
-FILES		= ${MAIN} ${FLAGS} ${UTILS}
+FILES		+= ${MAIN}
+FILES		+= ${UTILS}
 
 #-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/SRCS/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/#
 UTILS_SRCS	= $(addsuffix .c, $(addprefix ${UTILS_DIR}, ${UTILS}))
-SRCS		:= ${MAIN} ${FLAGS}
-SRCS		:= $(addsuffix .c, $(addprefix ${MAIN_DIR}, ${SRCS}))
+MAIN_SRCS	:= $(addsuffix .c, $(addprefix ${MAIN_DIR}, ${MAIN}))
+SRCS		+= ${UTILS_SRCS}
+SRCS		+= ${MAIN_SRCS}
 
 #-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/OBJS/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/#
-OBJS		= $(addprefix ${OBJS_DIR}, $(addsuffix .o, ${FILES}))
+OBJS		= $(addprefix ${OBJS_DIR}, ${SRCS:.c=.o})
 
 #-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/DEPS/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/#
 DEPS		= $(addsuffix .d, $(basename ${OBJS}))
@@ -62,7 +64,7 @@ INCLUDE		= -I${HEADER}
 B_INCLUDE	= -I${B_HEADER}
 
 #-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/RULES/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-#
-${OBJS_DIR}%.o	:	${SRCS_DIR}*/%.c ${LFTA} ${MK}
+$(OBJS_DIR)%.o	:	%.c ${DEPS_SRCS} ${MK}
 	@${MKD} $(dir $@)
 	@printf "${PINK}\rCompiling: ${YELLOW}$<...${DEF_COLOR}							\r"
 	@${CC} -MT $@ ${CFLAGS} -MMD -MP ${INCLUDE} -c $< -o $@

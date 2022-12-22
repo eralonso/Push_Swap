@@ -6,7 +6,7 @@
 #    By: eralonso <eralonso@student.42barcel>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/12/02 09:55:26 by eralonso          #+#    #+#              #
-#    Updated: 2022/12/20 11:41:12 by eralonso         ###   ########.fr        #
+#    Updated: 2022/12/22 12:05:14 by eralonso         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -32,19 +32,21 @@ SRC_DIR		=	src/
 EXEC_DIR	=	src/exec/
 MOVE_DIR	=	src/moves/
 UTIL_DIR	=	src/utils/
-OBJ_DIR		=	obj/
+OBJ_DIR		=	objs/
 
 F_EXECS		=	push_swap ft_check_input ft_stacks ft_sort ft_sort_massive
 F_UTILS		=	ft_utils ft_management_nodes
 F_MOVES		=	ft_moves ft_combs
 FILES		=	${F_EXECS} ${F_UTILS} ${F_MOVES}
 
-EXECS		=	$(addprefix ${SRC_DIR}, $(addsuffix .c, ${F_EXECS}))
+EXECS		=	$(addprefix ${EXEC_DIR}, $(addsuffix .c, ${F_EXECS}))
 UTILS		=	$(addprefix ${UTIL_DIR}, $(addsuffix .c, ${F_UTILS}))
 MOVES		=	$(addprefix ${MOVE_DIR}, $(addsuffix .c, ${F_MOVES}))
+SRCS		=	${EXECS} ${UTILS} ${MOVES}
 
-OBJS		=	$(addprefix ${OBJ_DIR}, $(addsuffix .o, ${FILES}))
-DEPS		=	$(addprefix ${OBJ_DIR}, $(addsuffix .d, ${FILES}))
+OBJS		=	$(addprefix ${OBJ_DIR}, ${SRCS:.c=.o})
+DEPS		=	${OBJS:.o=.d}
+DEPS_SRCS	=	lib/*/objs/src/*/*.o
 
 INCLUDE		=	-I ${HEADER}
 RM			=	rm -rf
@@ -52,7 +54,7 @@ MKD			=	mkdir -p
 MK			=	Makefile
 CFLAGS		=	-Wall -Wextra -Werror
 
-${OBJ_DIR}%.o	:	${SRC_DIR}*/%.c ${MK} ${LIB}
+${OBJ_DIR}%.o	:	%.c ${DEPS_SRCS} ${MK}
 	@${MKD} $(dir $@)
 	@printf "${PINK}\rCompiling: ${YELLOW}$<...						${DEF_COLOR}\r"
 	@${CC} -MT $@ ${CFLAGS} -MMD -MP ${INCLUDE} -c $< -o $@

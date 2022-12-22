@@ -6,7 +6,7 @@
 /*   By: eralonso <eralonso@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/01 12:11:11 by eralonso          #+#    #+#             */
-/*   Updated: 2022/12/20 19:48:36 by eralonso         ###   ########.fr       */
+/*   Updated: 2022/12/22 14:43:51 by eralonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@ typedef struct s_node {
 	int				index;
 	int				dst_idx;
 	int				dst_stk_idx;
+	int				mtp;
 }				t_node;
 
 typedef struct s_stack {
@@ -77,6 +78,9 @@ void		ft_sort_five(t_stack *a, t_stack *b);
 void		ft_sort_massive(t_stack *a, t_stack *b);
 void		ft_to_b(t_stack *a, t_stack *b, int s_chunks, int level);
 void		ft_to_a(t_stack *a, t_stack *b);
+void		ft_calc_mtp(t_node *node, int size);
+int			ft_optimizer(t_stack *a, t_stack *b);
+void		ft_push_optim(t_stack *a, t_stack *b, t_node *ntp, int flag);
 
 //TESTING
 void		ft_test_sort(t_stack a, t_stack b);
