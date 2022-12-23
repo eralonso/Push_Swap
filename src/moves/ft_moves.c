@@ -6,7 +6,7 @@
 /*   By: eralonso <eralonso@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/02 11:39:09 by eralonso          #+#    #+#             */
-/*   Updated: 2022/12/21 12:30:20 by eralonso         ###   ########.fr       */
+/*   Updated: 2022/12/23 19:00:40 by eralonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,11 @@ void	ft_sn(t_stack *s, t_stack *o, int rep)
 		tmp->next->prev = tmp;
 	s->first->next = tmp;
 	s->first->prev = NULL;
+	if (s->size == 2)
+	{
+		s->last = tmp;
+		tmp->next = NULL;
+	}
 	str = "sa";
 	if (s->id == 'b')
 		str = "sb";
@@ -95,7 +100,7 @@ void	ft_rrn(t_stack *s, t_stack *o, int rep)
 
 	if (s->size < 2)
 		return ;
-	tmp = s->last;
+	tmp	= s->last;
 	s->last = tmp->prev;
 	s->last->next = NULL;
 	tmp->next = s->first;

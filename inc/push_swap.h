@@ -6,7 +6,7 @@
 /*   By: eralonso <eralonso@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/01 12:11:11 by eralonso          #+#    #+#             */
-/*   Updated: 2022/12/22 17:50:15 by eralonso         ###   ########.fr       */
+/*   Updated: 2022/12/23 18:55:40 by eralonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,11 +79,6 @@ void		ft_sort_five(t_stack *a, t_stack *b);
 void		ft_sort_massive(t_stack *a, t_stack *b);
 void		ft_to_b(t_stack *a, t_stack *b, int s_chunks, int level);
 void		ft_to_a(t_stack *a, t_stack *b);
-int			ft_optimizer(t_stack *a, t_stack *b);
 void		ft_push_optim(t_stack *a, t_stack *b, int flag);
-void		ft_standard_sort(t_stack *a, t_stack *b);
-
-//TESTING
-void		ft_test_sort(t_stack a, t_stack b);
 
 #endif

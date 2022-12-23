@@ -6,7 +6,7 @@
 /*   By: eralonso <eralonso@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/12 09:16:54 by eralonso          #+#    #+#             */
-/*   Updated: 2022/12/21 13:29:36 by eralonso         ###   ########.fr       */
+/*   Updated: 2022/12/23 15:42:04 by eralonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,14 +17,18 @@ t_node	*ft_find_x_node(t_stack *s, int pos, char idx)
 	t_node	*tmp;
 
 	tmp = NULL;
-	if (!s || !s->first || pos >= s->size || pos < 0)
+	if (pos >= s->size)
+		pos = s->size - 1;
+	if (pos < 0)
+		pos = 0;
+	if (!s || !s->first)
 		return (NULL);
 	tmp = s->first;
 	if (idx == 'g')
-		while (tmp->dst_idx != pos)
+		while (tmp && tmp->dst_idx != pos)
 			tmp = tmp->next;
 	else if (idx == 's')
-		while (tmp->dst_stk_idx != pos)
+		while (tmp && tmp->dst_stk_idx != pos)
 			tmp = tmp->next;
 	return (tmp);
 }

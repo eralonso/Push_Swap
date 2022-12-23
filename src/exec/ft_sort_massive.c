@@ -6,7 +6,7 @@
 /*   By: eralonso <eralonso@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/19 17:38:55 by eralonso          #+#    #+#             */
-/*   Updated: 2022/12/22 20:05:29 by eralonso         ###   ########.fr       */
+/*   Updated: 2022/12/23 18:47:02 by eralonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,11 +29,10 @@ void	ft_sort_massive(t_stack *a, t_stack *b)
 	size = a->size;
 	while (a->first)
 	{
-		if (a->first->dst_idx >= s_chunks * i
-			&& a->first->dst_idx < s_chunks * (i + 1))
-			ft_to_b(a, b, s_chunks, i);
-		else
+		while (a->first && !(a->first->dst_idx >= s_chunks * i
+				&& a->first->dst_idx < s_chunks * (i + 1)))
 			ft_rn(a, b, 0);
+		ft_to_b(a, b, s_chunks, i);
 		if (a->size + (s_chunks * (i + 1)) == size)
 			i++;
 	}
@@ -60,58 +59,29 @@ void	ft_to_b(t_stack *a, t_stack *b, int s_chunks, int level)
 
 void	ft_to_a(t_stack *a, t_stack *b)
 {
-	t_node	*first;
-	t_node	*second;
-	t_node	*ntp;
-	int		flag;
-
-	while (b->first)
-	{
-		if (ft_optimizer(a, b) == 4)
-		{
-			first = ft_find_x_node(b, b->size - 1, 's');
-			second = ft_find_x_node(b, b->size - 2, 's');
-			ntp = first;
-			if ((first->index > b->size / 2 && second->index > first->index)
-				|| (first->index < b->size / 2 && second->index < first->index))
-				ntp = second;
-			flag = (b->size - 1) - ntp->dst_stk_idx;
-			ft_push_x_node(a, b, ntp->dst_stk_idx, 0);
-			if (flag == 1)
-			{
-				ft_push_x_node(a, b, b->size - 1, 0);
-				ft_sn(a, b, 0);
-			}
-		}
-	}
-}
-
-int	ft_optimizer(t_stack *a, t_stack *b)
-{
 	t_node	*big;
 	t_node	*sbig;
 	t_node	*tbig;
 	int		flag;
-	
-	flag = 4;
-	if (b->size > 6)
+
+	while (b->size > 2)
 	{
+		flag = 1;
 		big = ft_find_x_node(b, b->size - 1, 's');
 		sbig = ft_find_x_node(b, b->size - 2, 's');
 		tbig = ft_find_x_node(b, b->size - 3, 's');
 		ft_calc_mtp(big, b->size);
 		ft_calc_mtp(sbig, b->size);
 		ft_calc_mtp(tbig, b->size);
-		//if (big->mtp - 3 < sbig->mtp && big->mtp - 3 < tbig->mtp)
-		flag = 1;
-		if (sbig->mtp < big->mtp - 3 && sbig->mtp < tbig->mtp)
+		if (sbig->mtp < big->mtp && sbig->mtp <= tbig->mtp)
 			flag = 2;
-		else if (tbig->mtp < big->mtp - 3 && tbig->mtp < sbig->mtp)
+		else if (tbig->mtp < big->mtp && tbig->mtp <= sbig->mtp)
 			flag = 3;
 		ft_push_x_node(a, b, b->size - flag, 0);
 		ft_push_optim(a, b, flag);
 	}
-	return (flag);
+	while (b->size)
+		ft_push_x_node(a, b, b->size - 1, 0);
 }
 
 void	ft_push_optim(t_stack *a, t_stack *b, int flag)
@@ -123,51 +93,16 @@ void	ft_push_optim(t_stack *a, t_stack *b, int flag)
 	sbig = ft_find_x_node(b, b->size - 2, 's');
 	ft_calc_mtp(big, b->size);
 	ft_calc_mtp(sbig, b->size);
-	if (flag == 1)
-	{
-		if (big->mtp < sbig->mtp)
-		{
-			ft_push_x_node(a, b, big->dst_stk_idx, 0);
-			ft_push_x_node(a, b, sbig->dst_stk_idx, 0);
-		}
-		else
-		{
-			ft_push_x_node(a, b, sbig->dst_stk_idx, 0);
-			ft_push_x_node(a, b, big->dst_stk_idx, 0);
-			ft_sn(a, b, 0);
-		}
-	}
-	else if (flag == 2)
-	{
-		if (big->mtp < sbig->mtp)
-		{
-			ft_push_x_node(a, b, big->dst_stk_idx, 0);
-			ft_sn(a, b, 0);
-			ft_push_x_node(a, b, sbig->dst_stk_idx, 0);
-		}
-		else
-		{
-			ft_push_x_node(a, b, sbig->dst_stk_idx, 0);
-			ft_rn(a, b, 0);
-			ft_push_x_node(a, b, big->dst_stk_idx, 0);
-			ft_sn(a, b, 0);
-			ft_rrn(a, b, 0);
-		}
-	}
-	else if (flag == 3)
-	{
+	if (flag == 3)
 		ft_rn(a, b, 0);
-		if (big->mtp < sbig->mtp)
-		{
-			ft_push_x_node(a, b, big->dst_stk_idx, 0);
-			ft_push_x_node(a, b, sbig->dst_stk_idx, 0);
-		}
-		else
-		{
-			ft_push_x_node(a, b, sbig->dst_stk_idx, 0);
-			ft_push_x_node(a, b, big->dst_stk_idx, 0);
-			ft_sn(a, b, 0);
-		}
+	ft_push_x_node(a, b, (b->size - 1) - (big->mtp > sbig->mtp), 0);
+	if (flag == 2 && big->mtp <= sbig->mtp)
+		ft_sn(a, b, 0);
+	else if (flag == 2 && big->mtp > sbig->mtp)
+		ft_rn(a, b, 0);
+	ft_push_x_node(a, b, b->size - 1, 0);
+	if (big->mtp > sbig->mtp)
+		ft_sn(a, b, 0);
+	if ((flag == 2 && big->mtp > sbig->mtp) || flag == 3)
 		ft_rrn(a, b, 0);
-	}
 }

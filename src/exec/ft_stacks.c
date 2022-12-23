@@ -6,11 +6,12 @@
 /*   By: eralonso <eralonso@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/01 18:34:15 by eralonso          #+#    #+#             */
-/*   Updated: 2022/12/22 12:07:37 by eralonso         ###   ########.fr       */
+/*   Updated: 2022/12/23 18:45:39 by eralonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include	"push_swap.h"
+#include	<stdio.h>
 
 int	ft_init_stacks(t_stack *a, t_stack *b, char **input)
 {
