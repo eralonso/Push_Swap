@@ -13,7 +13,7 @@
 DEF_COLOR	=	\033[1;39m
 WHITE_BOLD	=	\033[1m
 BLACK		=	\033[1;30m
-RED			=	\033[1;31m
+RED		=	\033[1;31m
 GREEN		=	\033[1;32m
 YELLOW		=	\033[1;33m
 BLUE		=	\033[1;34m
@@ -27,7 +27,7 @@ CHECKER		=	checker
 #/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/LIBRARY/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/#
 NAME		=	push_swap
 LIBRARY		=	lib/
-LIB			=	lib/lib.a
+LIB		=	lib/lib.a
 
 #/-/-/-/-/-/-/-/-/-/-/-/-/-/-/HEADERS/-/-/-/-/-/-//-/-/-/-/-/-/-/-/-/-/#
 HEADER		=	./inc/
@@ -44,15 +44,19 @@ C_SRC_DIR	=	bonus/src/
 C_EXEC_DIR	=	bonus/src/exec/
 C_MOVE_DIR	=	bonus/src/moves/
 C_UTIL_DIR	=	bonus/src/utils/
+C_OBJ_DIR	=	bonus/objs/
 
 #/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/FILES/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/#
-F_EXECS		=	push_swap ft_check_input ft_stacks ft_sort ft_sort_massive
+F_EXECS		=	push_swap ft_check_input ft_stacks \
+			ft_sort ft_sort_massive
 F_UTILS		=	ft_utils ft_management_nodes
 F_MOVES		=	ft_moves ft_combs
 
-C_F_EXECS	=	push_swap ft_check_input ft_stacks ft_sort ft_sort_massive
-C_F_UTILS	=	ft_utils ft_management_nodes
-C_F_MOVES	=	ft_moves ft_combs
+C_F_EXECS	=	ft_checker_bonus ft_check_input_bonus \
+			ft_stacks_bonus
+C_F_UTILS	=	ft_utils_bonus
+C_F_MOVES	=	ft_moves_bonus ft_combs_bonus \
+			ft_choose_move_bonus
 
 #/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/SRCS-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/#
 EXECS		=	$(addprefix ${EXEC_DIR}, $(addsuffix .c, ${F_EXECS}))
@@ -68,17 +72,17 @@ C_SRCS		=	${C_EXECS} ${C_UTILS} ${C_MOVES}
 #/-/-/-/-/-/-/-/-/-/-/-/-/-/OBJS && DEPS/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/#
 OBJS		=	$(addprefix ${OBJ_DIR}, ${SRCS:.c=.o})
 DEPS		=	${OBJS:.o=.d}
-DEPS_SRCS	=	lib/*/objs/src/*/*.o
 
-C_OBJS		=	$(addprefix ${OBJ_DIR}, ${C_SRCS:.c=.o})
+C_OBJS		=	$(addprefix ${C_OBJ_DIR}, ${C_SRCS:.c=.o})
 C_DEPS		=	${C_OBJS:.o=.d}
-C_DEPS_SRCS	=	lib/*/objs/src/*/*.o
+
+DEPS_SRCS	=	lib/*/objs/src/*/*.o
 #/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/COMANDS/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/#
-INCLUDE		+=	-I ${HEADER}
-INCLUDE		+=	-I ${C_HEADER}
-RM			=	rm -rf
-MKD			=	mkdir -p
-MK			=	Makefile
+INCLUDE		=	-I ${HEADER}
+C_INCLUDE	=	-I ${C_HEADER}
+RM		=	rm -rf
+MKD		=	mkdir -p
+MK		=	Makefile
 CFLAGS		=	-Wall -Wextra -Werror
 
 #/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/RULES/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/#
@@ -86,6 +90,11 @@ ${OBJ_DIR}%.o	:	%.c ${DEPS_SRCS} ${MK}
 	@${MKD} $(dir $@)
 	@printf "${PINK}\rCompiling: ${YELLOW}$<...						${DEF_COLOR}\r"
 	@${CC} -MT $@ ${CFLAGS} -MMD -MP ${INCLUDE} -c $< -o $@
+
+${C_OBJ_DIR}%.o	:	%.c ${DEPS_SRCS} ${MK}
+	@${MKD} $(dir $@)
+	@printf "${PINK}\rCompiling: ${YELLOW}$<...						${DEF_COLOR}\r"
+	${CC} -MT $@ ${CFLAGS} -MMD -MP ${C_INCLUDE} -c $< -o $@
 
 all				:
 	@$(MAKE) make_lib
@@ -128,6 +137,7 @@ re				:
 	@echo ""
 	@echo "${CIAN}Push_swap has been recompiled${DEF_COLOR}"
 
-.PHONY			: all clean fclean re make_lib
+.PHONY			: all clean fclean re make_lib bonus
 
 -include		${DEPS}
+-include		${C_DEPS}

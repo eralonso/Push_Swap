@@ -12,11 +12,11 @@
 
 #include	"libft.h"
 
-void	*ft_free(char **split)
+void	*ft_free(char **split, int option)
 {
 	int	i;
 
-	if (split)
+	if (split && option == 1)
 	{
 		i = 0;
 		while (split[i])
@@ -26,8 +26,13 @@ void	*ft_free(char **split)
 			i++;
 		}
 		free(split);
-		split = NULL;
 	}
+	else if (split && option == 2)
+	{
+		free(*split);
+		*split = NULL;
+	}
+	split = NULL;
 	return (NULL);
 }
 
@@ -79,7 +84,7 @@ char	**ft_split(char const *s, char c)
 		{
 			split[i++] = ft_create_word(s, c);
 			if (!split[i - 1])
-				return (ft_free(split));
+				return (ft_free(split, 1));
 			while (*s != c && *s)
 				s++;
 		}

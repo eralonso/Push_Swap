@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include	"push_swap.h"
+#include	"checker_bonus.h"
 
 int	ft_init_stacks(t_stack *a, t_stack *b, char **input)
 {
@@ -30,13 +30,9 @@ int	ft_init_stacks(t_stack *a, t_stack *b, char **input)
 		first_n = first_n->next;
 	}
 	a->last = first_n;
-	a->id = 'a';
-	ft_dest_index(a);
-	ft_dest_stack_index(a);
 	b->first = NULL;
 	b->last = NULL;
 	b->size = 0;
-	b->id = 'b';
 	return (1);
 }
 
@@ -67,60 +63,4 @@ int	ft_stack_clear(t_stack *s)
 		s->first = tmp;
 	}
 	return (0);
-}
-
-void	ft_dest_index(t_stack *s)
-{
-	int		dest_idx;
-	int		idx;
-	t_node	*tmp;
-	t_node	*current;
-
-	if (!s || !s->first)
-		return ;
-	idx = 0;
-	current = s->first;
-	while (current)
-	{
-		tmp = s->first;
-		dest_idx = 0;
-		while (tmp)
-		{
-			if (current->val > tmp->val)
-				dest_idx++;
-			tmp = tmp->next;
-		}
-		current->dst_idx = dest_idx;
-		current->index = idx;
-		current = current->next;
-		idx++;
-	}
-}
-
-void	ft_dest_stack_index(t_stack *s)
-{
-	int		dest_idx;
-	int		idx;
-	t_node	*tmp;
-	t_node	*current;
-
-	if (!s || !s->first)
-		return ;
-	idx = 0;
-	current = s->first;
-	while (current)
-	{
-		tmp = s->first;
-		dest_idx = 0;
-		while (tmp)
-		{
-			if (current->val > tmp->val)
-				dest_idx++;
-			tmp = tmp->next;
-		}
-		current->dst_stk_idx = dest_idx;
-		current->index = idx;
-		current = current->next;
-		idx++;
-	}
 }

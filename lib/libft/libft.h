@@ -18,6 +18,7 @@
 # include	<limits.h>
 
 # define BUFFER_SIZE (int)10
+# define OPEN_MAX (int)200
 
 typedef struct s_list
 {
@@ -66,7 +67,7 @@ char		*ft_substr(char const *s, unsigned int start, size_t len);
 int			ft_tolower(int c);
 int			ft_toupper(int c);
 void		ft_striteri(char *s, void (*f)(unsigned int, char*));
-void		*ft_free(char **str);
+void		*ft_free(char **str, int option);
 char		**ft_split(char const *s, char c);
 t_list		*ft_lstnew(void *content);
 int			ft_lstsize(t_list *lst);

@@ -24,7 +24,7 @@ char	*ft_malloc_strjoin(char *s1, char *s2)
 		return (NULL);
 	str = malloc((ft_strlen(s1) + ft_strlen(s2) + 1) * sizeof(char));
 	if (!str)
-		return (ft_free(&s1));
+		return (ft_free(&s1, 2));
 	i = -1;
 	j = -1;
 	while (s1[++i])
@@ -32,7 +32,7 @@ char	*ft_malloc_strjoin(char *s1, char *s2)
 	while (s2[++j])
 		str[i++] = s2[j];
 	str[i] = '\0';
-	ft_free(&s1);
+	ft_free(&s1, 2);
 	return (str);
 }
 
@@ -42,13 +42,13 @@ void	ft_read_file(t_data *data)
 
 	data->line = (char *)malloc(sizeof(char) * (BUFFER_SIZE + 1));
 	if (!data->line)
-		data->err = !ft_free(&(data->buffer));
+		data->err = !ft_free(&(data->buffer), 2);
 	bytes = 1;
 	while (!data->err && bytes && !ft_strchr(data->buffer, '\n'))
 	{
 		bytes = read(data->fd, data->line, BUFFER_SIZE);
 		if (bytes == -1)
-			data->err = !ft_free(&(data->buffer));
+			data->err = !ft_free(&(data->buffer), 2);
 		else
 		{
 			if (*data->line || data->buffer)
@@ -60,7 +60,7 @@ void	ft_read_file(t_data *data)
 			}
 		}
 	}
-	ft_free(&(data->line));
+	ft_free(&(data->line), 2);
 }
 
 void	ft_get_line(t_data *data)
@@ -91,14 +91,14 @@ void	ft_clean_buffer(t_data *data)
 	aux = ft_strdup(data->buffer);
 	if (!aux)
 	{
-		data->err = !ft_free(&(data->buffer));
+		data->err = !ft_free(&(data->buffer), 2);
 		return ;
 	}
-	ft_free(&(data->buffer));
+	ft_free(&(data->buffer), 2);
 	data->buffer = ft_substr(aux, start + 1, (ft_strlen(aux) - start));
 	if (!data->buffer)
 		data->err = 1;
-	ft_free(&aux);
+	ft_free(&aux, 2);
 }
 
 char	*get_next_line(int fd)
@@ -122,6 +122,6 @@ char	*get_next_line(int fd)
 	if (!(data[fd]).err)
 		ft_clean_buffer(&(data[fd]));
 	if ((data[fd]).err || !ft_strchr((data[fd]).line, '\n'))
-		ft_free(&((data[fd]).buffer));
+		ft_free(&((data[fd]).buffer), 2);
 	return ((data[fd]).line);
 }
