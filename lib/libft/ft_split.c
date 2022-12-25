@@ -27,7 +27,7 @@ void	*ft_free(char **split, int option)
 		}
 		free(split);
 	}
-	else if (split && option == 2)
+	else if (split && *split && option == 2)
 	{
 		free(*split);
 		*split = NULL;

@@ -76,7 +76,7 @@ void	ft_rrn(t_stack *s)
 
 	if (s->size < 2)
 		return ;
-	tmp	= s->last;
+	tmp = s->last;
 	s->last = tmp->prev;
 	s->last->next = NULL;
 	tmp->next = s->first;

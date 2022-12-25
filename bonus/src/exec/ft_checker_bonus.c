@@ -11,8 +11,6 @@ int	main(int ac, char **av)
 		ft_exit(0, NULL, NULL);
 	if (!ft_init_stacks(&a, &b, &av[1]))
 		ft_exit(1, NULL, NULL);
-	if (ft_issorted(a.first, a.size - 1))
-		ft_exit(0, &a, &b);
 	ft_checking(&a, &b);
 	ft_stack_clear(&a);
 	ft_stack_clear(&b);
@@ -22,7 +20,7 @@ int	main(int ac, char **av)
 void	ft_checking(t_stack *a, t_stack *b)
 {
 	char	*str;
-	int	c_moves;
+	int		c_moves;
 	char	*res;
 
 	res = "OK";
@@ -32,7 +30,6 @@ void	ft_checking(t_stack *a, t_stack *b)
 	{
 		if (!ft_check_move(str, a, b))
 			ft_exit(1, a, b);
-		ft_free(&str, 2);
 		c_moves++;
 		str = get_next_line(0);
 	}
@@ -40,31 +37,41 @@ void	ft_checking(t_stack *a, t_stack *b)
 	if (b->size || !ft_issorted(a->first, a->size - 1)
 		|| !ft_number_moves(a, c_moves))
 		res = "KO";
-	if (ft_printf(1, "\033[0;9%im%s\033[0m\n"
-		, (res[0] == 'O') + 1, res) == -1)
-		ft_exit(1, a, b);
+	ft_printf(1, "%s\n", res);
 }
+
+	//if (ft_printf(1, "\033[0;9%im%s\033[0m\n"
+	//		, (res[0] == 'O') + 1, res) == -1)
+	//	ft_exit(1, a, b);
 
 int	ft_check_move(char *str, t_stack *a, t_stack *b)
 {
 	char	**lst_mv;
 	char	*moves;
+	int		i;
 
+	i = -1;
 	moves = "sa\n sb\n ss\n ra\n rb\n rr\n pa\n pb\n rra\n rrb\n rrr\n";
 	lst_mv = ft_split(moves, ' ');
 	if (!lst_mv)
-		ft_exit(1, a, b);
-	while (*lst_mv)
+		return ((int)*((int *)ft_free(&str, 2)));
+	while (lst_mv[++i])
 	{
-		if (!ft_strncmp(str, *lst_mv, ft_strlen(str)))
+		if (!ft_strncmp(str, lst_mv[i], ft_strlen(str)))
 		{
-			ft_process_move(*lst_mv, a, b);
+			ft_process_move(lst_mv[i], a, b);
+			ft_free(&str, 2);
+			ft_free(lst_mv, 1);
 			return (1);
 		}
-		lst_mv++;
 	}
+	ft_free(&str, 2);
+	ft_free(lst_mv, 1);
 	return (0);
 }
+
+	//if (ft_printf(1, "\033[0;91mKO\033[0m\n") == -1)
+	//	ft_exit(1, a, b);
 
 void	ft_process_move(char *move, t_stack *a, t_stack *b)
 {

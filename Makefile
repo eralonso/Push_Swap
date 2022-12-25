@@ -62,7 +62,7 @@ C_F_MOVES	=	ft_moves_bonus ft_combs_bonus \
 EXECS		=	$(addprefix ${EXEC_DIR}, $(addsuffix .c, ${F_EXECS}))
 UTILS		=	$(addprefix ${UTIL_DIR}, $(addsuffix .c, ${F_UTILS}))
 MOVES		=	$(addprefix ${MOVE_DIR}, $(addsuffix .c, ${F_MOVES}))
-SRCS		=	${EXECS} ${UTILS} ${MOVES}
+SRCS		=	${EXECS} ${MOVES} ${UTILS}
 
 C_EXECS		=	$(addprefix ${C_EXEC_DIR}, $(addsuffix .c, ${C_F_EXECS}))
 C_UTILS		=	$(addprefix ${C_UTIL_DIR}, $(addsuffix .c, ${C_F_UTILS}))
@@ -94,7 +94,7 @@ ${OBJ_DIR}%.o	:	%.c ${DEPS_SRCS} ${MK}
 ${C_OBJ_DIR}%.o	:	%.c ${DEPS_SRCS} ${MK}
 	@${MKD} $(dir $@)
 	@printf "${PINK}\rCompiling: ${YELLOW}$<...						${DEF_COLOR}\r"
-	${CC} -MT $@ ${CFLAGS} -MMD -MP ${C_INCLUDE} -c $< -o $@
+	@${CC} -MT $@ ${CFLAGS} -MMD -MP ${C_INCLUDE} -c $< -o $@
 
 all				:
 	@$(MAKE) make_lib

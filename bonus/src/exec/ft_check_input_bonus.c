@@ -18,6 +18,8 @@ int	ft_check_input(char **input)
 	int	tmp;
 
 	i = -1;
+	if (!input)
+		return (0);
 	while (input[++i])
 	{
 		if (!ft_isnum(input[i]) || !ft_isint(input[i]))
@@ -34,6 +36,8 @@ int	ft_isnum(char *input)
 	int	i;
 
 	i = 0;
+	if (!input || !*input)
+		return (0);
 	if (ft_strchr("+-", input[0]) && ft_strchr("+-", input[1]))
 		return (0);
 	if (ft_strchr("+-", input[i]))
@@ -55,11 +59,13 @@ int	ft_isint(char *num)
 	long long	tmp;
 
 	i = 0;
+	if (!num || !*num)
+		return (0);
 	if (ft_strchr("+-", num[i]))
 		i++;
 	while (num[i] && num[i] == '0')
 		i++;
-	if (!num[i])
+	if (num[0] && !num[i])
 		i--;
 	if (ft_strlen(&num[i]) > ft_nbr_size(INT_MAX, 10))
 		return (0);
@@ -76,6 +82,8 @@ long long	ft_atoll(char *str)
 
 	neg = 1;
 	res = 0;
+	if (!str || !*str)
+		return (0);
 	while (*str && ft_strchr("\t \n", *str))
 		str++;
 	if (*str && *str == '-')
@@ -95,7 +103,9 @@ int	ft_isdup(char **input, int num, int index)
 	int	i;
 
 	i = -1;
-	while (++i < index)
+	if (!input || !*input)
+		return (0);
+	while (input[++i] && i < index)
 	{
 		if (num == ft_atoi(input[i]))
 			return (0);
