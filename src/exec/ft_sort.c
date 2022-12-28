@@ -6,7 +6,7 @@
 /*   By: eralonso <eralonso@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/05 17:21:50 by eralonso          #+#    #+#             */
-/*   Updated: 2022/12/23 18:01:33 by eralonso         ###   ########.fr       */
+/*   Updated: 2022/12/28 13:26:36 by eralonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,12 +83,12 @@ void	ft_sort_five(t_stack *a, t_stack *b)
 	}
 	if (ft_push_x_node(b, a, first->dst_idx, 1) && first->dst_idx == 0)
 		return ;
-	if (ft_push_x_node(b, a, ntp->dst_stk_idx, 1))
+	else if (ft_push_x_node(b, a, ntp->dst_stk_idx, 1))
 		ft_pn(a, b);
-	ft_sort_three(a, b);
-	if (b->size)
-		ft_pn(a, b);
-	if (a->first->dst_stk_idx == a->size - 1)
-		ft_rn(a, b, 0);
+	else
+		ft_sort_three(a, b);
 	ft_pn(a, b);
+	ft_semisorted(a, b);
+	ft_pn(a, b);
+	ft_semisorted(a, b);
 }

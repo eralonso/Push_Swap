@@ -6,7 +6,7 @@
 /*   By: eralonso <eralonso@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/22 16:53:55 by eralonso          #+#    #+#             */
-/*   Updated: 2022/12/22 16:55:28 by eralonso         ###   ########.fr       */
+/*   Updated: 2022/12/28 12:39:16 by eralonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,11 +51,6 @@ void		ft_sn(t_stack *s);
 void		ft_rn(t_stack *s);
 void		ft_rrn(t_stack *s);
 void		ft_pn(t_stack *a, t_stack *b);
-
-////COMBS
-void		ft_ss(t_stack *a, t_stack *b);
-void		ft_rr(t_stack *a, t_stack *b);
-void		ft_rrr(t_stack *a, t_stack *b);
 
 //MOVE CHOOSER
 void		ft_swap(char *move, t_stack *a, t_stack *b);

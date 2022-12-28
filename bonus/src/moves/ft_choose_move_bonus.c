@@ -1,33 +1,39 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_choose_move_bonus.c                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: eralonso <eralonso@student.42barcel>       +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/12/28 09:12:29 by eralonso          #+#    #+#             */
+/*   Updated: 2022/12/28 12:34:51 by eralonso         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include	"checker_bonus.h"
 
 void	ft_swap(char *move, t_stack *a, t_stack *b)
 {
-	if (move[1] == 'a')
+	if (ft_strchr("sa", move[1]))
 		ft_sn(a);
-	else if (move[1] == 'b')
+	else if (ft_strchr("sb", move[1]))
 		ft_sn(b);
-	else
-		ft_ss(a, b);
 }
 
 void	ft_rotate(char *move, t_stack *a, t_stack *b)
 {
-	if (move[1] == 'a')
+	if (ft_strchr("ra", move[1]))
 		ft_rn(a);
-	else if (move[1] == 'b')
+	else if (ft_strchr("rb", move[1]))
 		ft_rn(b);
-	else
-		ft_rr(a, b);
 }
 
 void	ft_revrot(char *move, t_stack *a, t_stack *b)
 {
-	if (move[2] == 'a')
+	if (ft_strchr("ra", move[1]))
 		ft_rrn(a);
-	else if (move[2] == 'b')
+	else if (ft_strchr("rb", move[1]))
 		ft_rrn(b);
-	else
-		ft_rrr(a, b);
 }
 
 void	ft_push(char *move, t_stack *a, t_stack *b)

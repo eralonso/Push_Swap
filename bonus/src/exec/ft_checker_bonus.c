@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_checker_bonus.c                                 :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: eralonso <eralonso@student.42barcel>       +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/12/28 09:11:00 by eralonso          #+#    #+#             */
+/*   Updated: 2022/12/28 12:52:19 by eralonso         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include	"checker_bonus.h"
 
 int	main(int ac, char **av)
@@ -7,7 +19,7 @@ int	main(int ac, char **av)
 
 	if (!ft_check_input(&av[1]))
 		ft_exit(1, NULL, NULL);
-	if (ac <= 2)
+	if (ac < 2)
 		ft_exit(0, NULL, NULL);
 	if (!ft_init_stacks(&a, &b, &av[1]))
 		ft_exit(1, NULL, NULL);
@@ -37,12 +49,10 @@ void	ft_checking(t_stack *a, t_stack *b)
 	if (b->size || !ft_issorted(a->first, a->size - 1)
 		|| !ft_number_moves(a, c_moves))
 		res = "KO";
-	ft_printf(1, "%s\n", res);
+	if (ft_printf(1, "\033[1;9%im%s\033[0m\n"
+			, (res[0] == 'O') + 1, res) == -1)
+		ft_exit(1, a, b);
 }
-
-	//if (ft_printf(1, "\033[0;9%im%s\033[0m\n"
-	//		, (res[0] == 'O') + 1, res) == -1)
-	//	ft_exit(1, a, b);
 
 int	ft_check_move(char *str, t_stack *a, t_stack *b)
 {
@@ -54,7 +64,10 @@ int	ft_check_move(char *str, t_stack *a, t_stack *b)
 	moves = "sa\n sb\n ss\n ra\n rb\n rr\n pa\n pb\n rra\n rrb\n rrr\n";
 	lst_mv = ft_split(moves, ' ');
 	if (!lst_mv)
-		return ((int)*((int *)ft_free(&str, 2)));
+	{
+		ft_free(&str, 2);
+		return (0);
+	}
 	while (lst_mv[++i])
 	{
 		if (!ft_strncmp(str, lst_mv[i], ft_strlen(str)))
@@ -69,9 +82,6 @@ int	ft_check_move(char *str, t_stack *a, t_stack *b)
 	ft_free(lst_mv, 1);
 	return (0);
 }
-
-	//if (ft_printf(1, "\033[0;91mKO\033[0m\n") == -1)
-	//	ft_exit(1, a, b);
 
 void	ft_process_move(char *move, t_stack *a, t_stack *b)
 {

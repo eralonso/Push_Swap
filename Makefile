@@ -6,7 +6,7 @@
 #    By: eralonso <eralonso@student.42barcel>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/12/02 09:55:26 by eralonso          #+#    #+#              #
-#    Updated: 2022/12/23 19:30:46 by eralonso         ###   ########.fr        #
+#    Updated: 2022/12/28 12:35:58 by eralonso         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -55,8 +55,7 @@ F_MOVES		=	ft_moves ft_combs
 C_F_EXECS	=	ft_checker_bonus ft_check_input_bonus \
 			ft_stacks_bonus
 C_F_UTILS	=	ft_utils_bonus
-C_F_MOVES	=	ft_moves_bonus ft_combs_bonus \
-			ft_choose_move_bonus
+C_F_MOVES	=	ft_moves_bonus ft_choose_move_bonus
 
 #/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/SRCS-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/#
 EXECS		=	$(addprefix ${EXEC_DIR}, $(addsuffix .c, ${F_EXECS}))
@@ -122,7 +121,7 @@ make_lib		:
 
 clean			:
 	@$(MAKE) clean -C ${LIBRARY}
-	@${RM} ${OBJ_DIR}
+	@${RM} ${OBJ_DIR} ${C_OBJ_DIR}
 	@echo "${RED}All OBJS && DEPS has been removed${DEF_COLOR}"
 
 fclean			:
